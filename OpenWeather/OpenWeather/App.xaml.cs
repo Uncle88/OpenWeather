@@ -8,7 +8,7 @@ namespace OpenWeather
         {
             InitializeComponent();
 
-            MainPage = new OpenWeatherPage();
+            MainPage = new OpenWeatherView();
         }
 
         protected override void OnStart()

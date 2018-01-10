@@ -2,9 +2,9 @@
 
 namespace OpenWeather
 {
-    public partial class OpenWeatherPage : ContentPage
+    public partial class OpenWeatherView : ContentPage
     {
-        public OpenWeatherPage()
+        public OpenWeatherView()
         {
             InitializeComponent();
         }

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:local="clr-namespace:OpenWeather" 
+    x:Class="OpenWeather.OpenWeatherView">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="labelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="Grid.ColumnSpan" Value="4" />
+            </Style>
+            <Style x:Key="labelStyle1" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="Grid.Column" Value="1" />
+            </Style>
+             <Style x:Key="labelStyle2" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="Grid.Column" Value="3" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+	<Grid BackgroundColor="White" Padding="10,150,10,10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="45" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        
+        <Label Text="{Binding City}" Grid.Row="0" FontSize="40" Style="{StaticResource labelStyle}"/>
+        <Label Text="{Binding Temperature}" Grid.Row="1" FontSize="50" Style="{StaticResource labelStyle}"/>
+        <Label Text="{Binding DateTimeRequest}" Grid.Row="2" FontSize="15" Style="{StaticResource labelStyle}"/>
+
+        <Label Text="Wind" Grid.Row="3"  Style="{StaticResource labelStyle1}"/>
+        <Label Text="{Binding Wind}" Grid.Row="3" Style="{StaticResource labelStyle2}"/>
+
+        <Label Text="Cloudiness"  Grid.Row="4" Style="{StaticResource labelStyle1}"/> 
+        <Label Text="{Binding Cloudiness}" Grid.Row="4" Style="{StaticResource labelStyle2}"/>
+
+         <Label Text="Pressure" Grid.Row="5" Style="{StaticResource labelStyle1}"/>
+         <Label Text="{Binding Pressure}" Grid.Row="5" Style="{StaticResource labelStyle2}"/>
+
+         <Label Text="Humidity" Grid.Row="6" Style="{StaticResource labelStyle1}"/>
+         <Label Text="{Binding Humidity}" Grid.Row="6" Style="{StaticResource labelStyle2}"/>
+
+         <Label Text="Sunrise" Grid.Row="7" Style="{StaticResource labelStyle1}"/>
+         <Label Text="{Binding Sunrise}" Grid.Row="7" Style="{StaticResource labelStyle2}"/>
+
+         <Label Text="Sunset" Grid.Row="8" Style="{StaticResource labelStyle1}"/>
+         <Label Text="{Binding Sunset}" Grid.Row="8" Style="{StaticResource labelStyle2}"/>
+
+         <Label Text="GeoCoord" Grid.Row="9" Style="{StaticResource labelStyle1}"/>
+         <Label Text="{Binding GeoCoord}" Grid.Row="9" Style="{StaticResource labelStyle2}"/>
+    </Grid>
+</ContentPage>

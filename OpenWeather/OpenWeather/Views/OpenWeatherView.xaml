@@ -14,8 +14,8 @@
             <Style x:Key="labelStyle1" TargetType="Label">
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="FontSize" Value="20" />
-                <Setter Property="HorizontalOptions" Value="Center" />
-                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+                <Setter Property="VerticalOptions" Value="Start" />
                 <Setter Property="Grid.Column" Value="1" />
             </Style>
              <Style x:Key="labelStyle2" TargetType="Label">
@@ -47,7 +47,7 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         
-        <Label Text="{Binding City}" Grid.Row="0" FontSize="40" Style="{StaticResource labelStyle}"/>
+        <Label Text="{Binding City}" Grid.Row="0" FontSize="30" Style="{StaticResource labelStyle}" />
         <Label Text="{Binding Temperature}" Grid.Row="1" FontSize="50" Style="{StaticResource labelStyle}"/>
         <Label Text="{Binding DateTimeRequest}" Grid.Row="2" FontSize="15" Style="{StaticResource labelStyle}"/>
 

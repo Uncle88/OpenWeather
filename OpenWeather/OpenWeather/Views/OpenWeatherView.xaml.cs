@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using OpenWeather.ViewModels;
+using Xamarin.Forms;
 
 namespace OpenWeather
 {
@@ -7,6 +8,7 @@ namespace OpenWeather
         public OpenWeatherView()
         {
             InitializeComponent();
+            BindingContext = new OpenWeatherViewModel();
         }
     }
 }

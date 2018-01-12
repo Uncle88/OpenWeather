@@ -7,7 +7,7 @@ namespace OpenWeather.Services.Rest
 {
     public class RestService : IRestService
     {
-        public async Task<JContainer> GetDataFromService(string queryString)
+        public async Task<JContainer> GetDataForecast(string queryString)
         {
             HttpClient client = new HttpClient();
             var response = await client.GetAsync(queryString);

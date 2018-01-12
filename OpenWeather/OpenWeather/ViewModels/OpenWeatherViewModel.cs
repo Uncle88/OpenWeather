@@ -1,11 +1,30 @@
 ﻿using System;
+using System.Threading.Tasks;
+using OpenWeather.Models;
+using OpenWeather.Services.DataWeather;
+using OpenWeather.Services.Rest;
+
 namespace OpenWeather.ViewModels
 {
     public class OpenWeatherViewModel : ViewModelBase
     {
+        IDataWeatherService _dataWeatherService;
+        IRestService _restService;
+
         public OpenWeatherViewModel()
         {
             City = "DNIPRO";
+
+            _dataWeatherService = new DataWeatherService();
+            _restService = new RestService();
+
+            GetForecast();
+        }
+
+        private async Task<Weather> GetForecast()
+        {
+            var awaited = await _dataWeatherService.GetWeather();
+            return awaited;
         }
 
         private string _city;

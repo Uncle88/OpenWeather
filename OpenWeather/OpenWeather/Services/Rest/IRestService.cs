@@ -7,6 +7,6 @@ namespace OpenWeather.Services.Rest
 {
     public interface IRestService
     {
-        Task<JContainer> GetDataFromService(string queryString);
+        Task<JContainer> GetDataForecast(string queryString);
     }
 }

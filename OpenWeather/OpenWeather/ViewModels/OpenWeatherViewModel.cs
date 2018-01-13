@@ -23,8 +23,16 @@ namespace OpenWeather.ViewModels
 
         private async Task<Weather> GetForecast()
         {
-            var awaited = await _dataWeatherService.GetWeather();
-            return awaited;
+            try
+            {
+                var awaited = await _dataWeatherService.GetWeather();
+                return awaited;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
         }
 
         private string _city;

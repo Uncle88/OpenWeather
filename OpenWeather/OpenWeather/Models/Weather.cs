@@ -1,25 +1,46 @@
 ﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+
 namespace OpenWeather.Models
 {
-        public class Weather
-        {
-            public string Title { get; set; }
-            public string Temperature { get; set; }
-            public string Wind { get; set; }
-            public string Humidity { get; set; }
-            public string Visibility { get; set; }
-            public string Sunrise { get; set; }
-            public string Sunset { get; set; }
-
-            public Weather()
-            {
-                this.Title = " ";
-                this.Temperature = " ";
-                this.Wind = " ";
-                this.Humidity = " ";
-                this.Visibility = " ";
-                this.Sunrise = " ";
-                this.Sunset = " ";
-            }
-        }
+    public class WeatherMainModel
+    {
+        [JsonProperty("name")]
+        public string name { get; set; }
+        public WeatherTempDetails main { get; set; }
+        public List<WeatherSubDetails> weather { get; set; }
+        public WeatherWindDetails wind { get; set; }
+        public WeatherSysDetails sys { get; set; }
     }
+
+    public class WeatherSubDetails
+    {
+        [JsonProperty("main")]
+        public string main { get; set; }
+        [JsonProperty("description")]
+        public string description { get; set; }
+        [JsonProperty("icon")]
+        public string icon { get; set; }
+    }
+
+    public class WeatherSysDetails
+    {
+        [JsonProperty("country")]
+        public string country { get; set; }
+    }
+
+    public class WeatherTempDetails
+    {
+        [JsonProperty("temp")]
+        public string temp { get; set; }
+        [JsonProperty("humidity")]
+        public string humidity { get; set; }
+    }
+
+    public class WeatherWindDetails
+    {
+        [JsonProperty("speed")]
+        public string speed { get; set; }
+    }
+}

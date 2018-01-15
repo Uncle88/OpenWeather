@@ -6,6 +6,6 @@ namespace OpenWeather.Services.DataWeather
 {
     public interface IDataWeatherService
     {
-        Task<Weather> GetWeather();
+        Task<WeatherMainModel> GetWeather(string city);
     }
 }

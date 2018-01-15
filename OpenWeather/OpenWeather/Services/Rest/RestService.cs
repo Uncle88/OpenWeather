@@ -1,24 +1,19 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using OpenWeather.Constants;
+using OpenWeather.Models;
 
 namespace OpenWeather.Services.Rest
 {
     public class RestService : IRestService
     {
-        public async Task<JContainer> GetDataForecast(string queryString)
+        public async Task<WeatherMainModel> GetAllWeathers(string city)
         {
-            HttpClient client = new HttpClient();
-            var response = await client.GetAsync(queryString);
-
-            JContainer data = null;
-            if (response != null)
-            {
-                string json = response.Content.ReadAsStringAsync().Result;
-                data = (JContainer)JsonConvert.DeserializeObject(json);
-            }
-            return data;
+            HttpClient _httpClient = new HttpClient();
+            var json = await _httpClient.GetStringAsync(WeatherConstants.OpenWeatherApi + city + "&APPID=" + WeatherConstants.key);
+            var getWeatherModels = JsonConvert.DeserializeObject<WeatherMainModel>(json);
+            return getWeatherModels;
         }
     }
 }

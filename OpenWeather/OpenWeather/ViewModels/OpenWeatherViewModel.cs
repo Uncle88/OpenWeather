@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using OpenWeather.Models;
 using OpenWeather.Services.DataWeather;
 using OpenWeather.Services.Rest;
@@ -13,166 +12,68 @@ namespace OpenWeather.ViewModels
 
         public OpenWeatherViewModel()
         {
-            City = "DNIPRO";
-
             _dataWeatherService = new DataWeatherService();
             _restService = new RestService();
-
-            GetForecast();
         }
 
-        private async Task<Weather> GetForecast()
+        private WeatherMainModel _weatherMainModel; 
+        public WeatherMainModel WeatherMainModel
         {
-            try
+            get { return _weatherMainModel; }
+            set
             {
-                var awaited = await _dataWeatherService.GetWeather();
-                return awaited;
+                _weatherMainModel = value;
+                IconImageString = "http://openweathermap.org/img/w/" + _weatherMainModel.weather[0].icon + ".png";
+                OnPropertyChanged();
             }
-            catch (Exception ex)
-            {
-                return null;
-            }
-
         }
 
-        private string _city;
-        private string _temperature;
-        private DateTime _dateTimeRequest;
-        private string _wind;
-        private string _cloudiness;
-        private string _pressure;
-        private string _humidity;
-        private string _sunrise;
-        private string _sunset;
-        private string _geoCoord;
-
+        private string _iconImageString;
+        public string IconImageString
+        {
+            get { return _iconImageString; }
+            set
+            {
+                _iconImageString = value;
+                OnPropertyChanged();
+            }
+        }
+    
+        private string _city; 
         public string City
         {
             get { return _city; }
             set
             {
-                if (_city != value)
-                {
-                    _city = value;
-                    OnPropertyChanged();
-                }
+                _city = value;
+                Task.Run(async () => {
+                    await InitializeGetWeatherAsync();
+                });
+                OnPropertyChanged();
             }
         }
 
-        public string Temperature
+        private async Task InitializeGetWeatherAsync()
         {
-            get { return _temperature; }
-            set
+            try
             {
-                if (_temperature != value)
-                {
-                    _temperature = value;
-                    OnPropertyChanged();
-                }
+                IsBusy = true;
+                WeatherMainModel = await _dataWeatherService.GetWeather(_city);
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 
-        public DateTime DateTimeRequest
+        private bool _isBusy;
+        public bool IsBusy
         {
-            get { return _dateTimeRequest; }
+            get { return _isBusy; }
             set
             {
-                if (_dateTimeRequest != value)
-                {
-                    _dateTimeRequest = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string Wind
-        {
-            get { return _wind; }
-            set
-            {
-                if (_wind != value)
-                {
-                    _wind = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string Cloudiness
-        {
-            get { return _cloudiness; }
-            set
-            {
-                if (_cloudiness != value)
-                {
-                    _cloudiness = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string Pressure
-        {
-            get { return _pressure; }
-            set
-            {
-                if (_pressure != value)
-                {
-                    _pressure = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string Humidity
-        {
-            get { return _humidity; }
-            set
-            {
-                if (_humidity != value)
-                {
-                    _humidity = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string Sunrise
-        {
-            get { return _sunrise; }
-            set
-            {
-                if (_sunrise != value)
-                {
-                    _sunrise = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string Sunset
-        {
-            get { return _sunset; }
-            set
-            {
-                if (_sunset != value)
-                {
-                    _sunset = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string GeoCoord
-        {
-            get { return _geoCoord; }
-            set
-            {
-                if (_geoCoord != value)
-                {
-                    _geoCoord = value;
-                    OnPropertyChanged();
-                }
+                _isBusy = value;
+                OnPropertyChanged();
             }
         }
     }

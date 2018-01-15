@@ -1,12 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+﻿using System.Threading.Tasks;
 using OpenWeather.Models;
 
 namespace OpenWeather.Services.Rest
 {
     public interface IRestService
     {
-        Task<JContainer> GetDataForecast(string queryString);
+        Task<WeatherMainModel> GetAllWeathers(string city);
     }
 }

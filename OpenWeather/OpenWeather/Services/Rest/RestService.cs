@@ -8,12 +8,16 @@ namespace OpenWeather.Services.Rest
 {
     public class RestService : IRestService
     {
-        public async Task<WeatherMainModel> GetAllWeathers(string city)
+        public async Task<T> GetAsync<T>(string city)
         {
-            HttpClient _httpClient = new HttpClient();
-            var json = await _httpClient.GetStringAsync(WeatherConstants.OpenWeatherApi + city + "&APPID=" + WeatherConstants.key);
-            var getWeatherModels = JsonConvert.DeserializeObject<WeatherMainModel>(json);
-            return getWeatherModels;
+            using( var client = new HttpClient())
+            {
+                using (var responce = await client.GetAsync(WeatherConstants.OpenWeatherApi + city + "&APPID=" + WeatherConstants.key))
+                {
+                    var json = await responce.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    return JsonConvert.DeserializeObject<T>(json);
+                }
+            }
         }
     }
 }

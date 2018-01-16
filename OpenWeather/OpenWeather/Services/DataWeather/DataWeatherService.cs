@@ -15,7 +15,7 @@ namespace OpenWeather.Services.DataWeather
 
         public async Task<WeatherMainModel> GetWeather(string city)
         {
-            var getWeatherDetails = await _restService.GetAllWeathers(city);
+            var getWeatherDetails = await _restService.GetAsync<WeatherMainModel>(city);
             return getWeatherDetails;
         }
     }

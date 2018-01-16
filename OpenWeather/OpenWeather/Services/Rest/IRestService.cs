@@ -5,6 +5,6 @@ namespace OpenWeather.Services.Rest
 {
     public interface IRestService
     {
-        Task<WeatherMainModel> GetAllWeathers(string city);
+        Task<T> GetAsync<T>(string city);
     }
 }

@@ -21,7 +21,7 @@ namespace OpenWeather.Services.DataWeather
 
         private string CreateQueryStructureByCityName(string cityName)
         {
-            return $"{WeatherConstants.BaseUrl}weather?q={cityName}&appid={WeatherConstants.key}";
+            return $"{WeatherConstants.BaseUrl}weather?q={cityName}&appid={WeatherConstants.key}&units=metric";
         }
     }
 }

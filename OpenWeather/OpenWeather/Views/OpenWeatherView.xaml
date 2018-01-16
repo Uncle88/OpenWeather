@@ -14,13 +14,19 @@
            Placeholder="Search City"/>
     <ActivityIndicator IsRunning="{Binding IsBusy,Mode=TwoWay}"/>
     <StackLayout Orientation="Horizontal">
-        <StackLayout HorizontalOptions="StartAndExpand">
-            <Label Text="City:"/>
-        </StackLayout>
-        <StackLayout HorizontalOptions="EndAndExpand">
-            <Label Text="{Binding WeatherMainModel.name}"/>
+        <StackLayout HorizontalOptions="CenterAndExpand">
+            <Label Text="{Binding WeatherMainModel.name}" FontSize="30" FontAttributes="Bold"/>
         </StackLayout>
     </StackLayout>
+        <StackLayout>
+            <Grid>
+                <Label Text="{Binding WeatherMainModel.main.temp}" FontAttributes="Bold" Font="30" Grid.Row="0" Grid.Column="0" 
+                HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand"/>
+                <Image Source="{Binding IconImageString}"
+                   WidthRequest="70"
+                   HeightRequest="70" HorizontalOptions="StartAndExpand" Grid.Row="0" Grid.Column="1"/>
+            </Grid>
+        </StackLayout>
 
     <StackLayout Orientation="Horizontal">
         <StackLayout HorizontalOptions="StartAndExpand">
@@ -30,16 +36,6 @@
             <Label Text="{Binding WeatherMainModel.sys.country}"/>
         </StackLayout>
     </StackLayout>
-
-    <StackLayout Orientation="Horizontal">
-        <StackLayout HorizontalOptions="StartAndExpand">
-            <Label Text="Temperature:"/>
-        </StackLayout>
-    <StackLayout HorizontalOptions="EndAndExpand">
-            <Label Text="{Binding WeatherMainModel.main.temp}"/>
-        </StackLayout>
-    </StackLayout>
-
     <StackLayout Orientation="Horizontal">
         <StackLayout HorizontalOptions="StartAndExpand">
             <Label Text="Humidity:"/>
@@ -66,18 +62,6 @@
             <Label Text="{Binding WeatherMainModel.weather[0].description}"/>           
         </StackLayout>
      </StackLayout>
-
-    <StackLayout Orientation="Horizontal">
-        <StackLayout HorizontalOptions="StartAndExpand">
-            <Label Text="Weather Icon:"/>
-        </StackLayout>
-        <StackLayout HorizontalOptions="EndAndExpand">
-            <Image Source="{Binding IconImageString}"
-                   WidthRequest="30"
-                   HeightRequest="30"/>
-            </StackLayout>
-    </StackLayout>
-        
     <StackLayout Orientation="Horizontal">
         <StackLayout HorizontalOptions="StartAndExpand">
             <Label Text="Wind Speed:"/>

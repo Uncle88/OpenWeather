@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using OpenWeather.Constants;
 using OpenWeather.Models;
 using OpenWeather.Services.Rest;
 
@@ -13,10 +14,14 @@ namespace OpenWeather.Services.DataWeather
             _restService = new RestService();
         }
 
-        public async Task<WeatherMainModel> GetWeather(string city)
+        public Task<WeatherMainModel> GetWeatherByCityName(string cityName)
         {
-            var getWeatherDetails = await _restService.GetAsync<WeatherMainModel>(city);
-            return getWeatherDetails;
+            return _restService.GetAsync<WeatherMainModel>(CreateQueryStructureByCityName(cityName));
+        }
+
+        private string CreateQueryStructureByCityName(string cityName)
+        {
+            return $"{WeatherConstants.BaseUrl}weather?q={cityName}&appid={WeatherConstants.key}";
         }
     }
 }

@@ -58,7 +58,7 @@ namespace OpenWeather.ViewModels
             try
             {
                 IsBusy = true;
-                WeatherMainModel = await _dataWeatherService.GetWeather(_city);
+                WeatherMainModel = await _dataWeatherService.GetWeatherByCityName(_city);
             }
             finally
             {

@@ -4,73 +4,62 @@
     xmlns:local="clr-namespace:OpenWeather" 
     x:Class="OpenWeather.OpenWeatherView"
     xmlns:weatherVm="clr-namespace:OpenWeather.ViewModels">
-
-    <ContentPage.BindingContext>
-    <weatherVm:OpenWeatherViewModel/>
-    </ContentPage.BindingContext>
-
-<StackLayout Padding="20,40,20,20">
-    <Entry Text="{Binding City, Mode=TwoWay}"
-           Placeholder="Search City"/>
     <ActivityIndicator IsRunning="{Binding IsBusy,Mode=TwoWay}"/>
-    <StackLayout Orientation="Horizontal">
-        <StackLayout HorizontalOptions="CenterAndExpand">
-            <Label Text="{Binding WeatherMainModel.name}" FontSize="30" FontAttributes="Bold"/>
-        </StackLayout>
-    </StackLayout>
-        <StackLayout>
-            <Grid>
-                <Label Text="{Binding WeatherMainModel.main.temp}" FontAttributes="Bold" Font="30" Grid.Row="0" Grid.Column="0" 
-                HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand"/>
-                <Image Source="{Binding IconImageString}"
-                   WidthRequest="70"
-                   HeightRequest="70" HorizontalOptions="StartAndExpand" Grid.Row="0" Grid.Column="1"/>
-            </Grid>
-        </StackLayout>
+    <ContentPage.Resources>
+         <ResourceDictionary>
+             <Style x:Key="labelStyle" TargetType="Label">
+                 <Setter Property="TextColor" Value="Black" />
+                 <Setter Property="Grid.Column" Value="2" />
+                 <Setter Property="FontAttributes" Value="Bold" />
+             </Style>
+             <Style x:Key="labelStyle2" TargetType="Label">
+                 <Setter Property="TextColor" Value="Black" />
+                 <Setter Property="Grid.Column" Value="4" />
+                 <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+             </Style>
+         </ResourceDictionary>
+     </ContentPage.Resources>
+        <Grid BackgroundColor="White" Padding="10,40,10,10">
+        <Grid.RowDefinitions>
+             <RowDefinition Height="40" />
+             <RowDefinition Height="80" />
+             <RowDefinition Height="70" />
+             <RowDefinition Height="30" />
+             <RowDefinition Height="30" />
+             <RowDefinition Height="30" />
+             <RowDefinition Height="30" />
+             <RowDefinition Height="30" />
+             <RowDefinition Height="30" />
+             <RowDefinition Height="*" />
+         </Grid.RowDefinitions>
+         <Grid.ColumnDefinitions>
+             <ColumnDefinition Width="Auto" />
+             <ColumnDefinition Width="Auto" />
+             <ColumnDefinition Width="Auto" />
+             <ColumnDefinition Width="Auto" />
+         </Grid.ColumnDefinitions>
+        
+            <Entry Text="{Binding City, Mode=TwoWay}" Placeholder="Search City" Grid.Row="0" Grid.ColumnSpan="5" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand"/>
+            
+            <Label Text="{Binding WeatherMainModel.name}" FontSize="30" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Grid.Row="1" Grid.ColumnSpan="5"/>
+            <Label Text="{Binding WeatherMainModel.main.temp}" FontAttributes="Bold" Font="30" Grid.Row="2" Grid.Column="2"  HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand"/>
+            <Image Source="{Binding IconImageString}" WidthRequest="70" HeightRequest="70" HorizontalOptions="StartAndExpand" Grid.Row="2" Grid.Column="3"/>
+            
+            <Label Text="Country:" Grid.Row="3" Style="{StaticResource labelStyle}"/>
+            <Label Text="{Binding WeatherMainModel.sys.country}" Grid.Row="3" Style="{StaticResource labelStyle2}"/>
 
-    <StackLayout Orientation="Horizontal">
-        <StackLayout HorizontalOptions="StartAndExpand">
-            <Label Text="Country:"/>
-        </StackLayout>
-        <StackLayout HorizontalOptions="EndAndExpand">
-            <Label Text="{Binding WeatherMainModel.sys.country}"/>
-        </StackLayout>
-    </StackLayout>
-    <StackLayout Orientation="Horizontal">
-        <StackLayout HorizontalOptions="StartAndExpand">
-            <Label Text="Humidity:"/>
-        </StackLayout>
-    <StackLayout HorizontalOptions="EndAndExpand">
-            <Label Text="{Binding WeatherMainModel.main.humidity}"/>
-        </StackLayout>
-    </StackLayout>
+            <Label Text="Humidity:" Grid.Row="4" Style="{StaticResource labelStyle}" />
+            <Label Text="{Binding WeatherMainModel.main.humidity}" Grid.Row="4" Style="{StaticResource labelStyle2}"/>
 
-    <StackLayout Orientation="Horizontal">
-        <StackLayout HorizontalOptions="StartAndExpand">
-            <Label Text="Weather Main Status:"/>
-        </StackLayout>
-    <StackLayout HorizontalOptions="EndAndExpand">
-            <Label Text="{Binding WeatherMainModel.weather[0].main}"/>
-        </StackLayout>
-    </StackLayout>
+            <Label Text="Weather Main Status:" Grid.Row="5" Style="{StaticResource labelStyle}"/>
+            <Label Text="{Binding WeatherMainModel.weather[0].main}" Grid.Row="5" Style="{StaticResource labelStyle2}"/>
 
-    <StackLayout Orientation="Horizontal">
-        <StackLayout HorizontalOptions="StartAndExpand">
-            <Label Text="Weather Status:"/>
-        </StackLayout>
-        <StackLayout HorizontalOptions="EndAndExpand">
-            <Label Text="{Binding WeatherMainModel.weather[0].description}"/>           
-        </StackLayout>
-     </StackLayout>
-    <StackLayout Orientation="Horizontal">
-        <StackLayout HorizontalOptions="StartAndExpand">
-            <Label Text="Wind Speed:"/>
-        </StackLayout>
-        <StackLayout HorizontalOptions="EndAndExpand">
-            <Label Text="{Binding WeatherMainModel.wind.speed}"/>
-        </StackLayout>
-    </StackLayout>
-</StackLayout>
+            <Label Text="Weather Status:" Grid.Row="6" Style="{StaticResource labelStyle}"/>
+            <Label Text="{Binding WeatherMainModel.weather[0].description}" Grid.Row="6" Style="{StaticResource labelStyle2}"/>
+
+            <Label Text="Wind Speed:" Grid.Row="7" Style="{StaticResource labelStyle}"/>
+            <Label Text="{Binding WeatherMainModel.wind.speed}" Grid.Row="7" Style="{StaticResource labelStyle2}"/>
+        </Grid>
     </ContentPage>
 
      

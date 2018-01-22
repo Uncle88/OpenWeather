@@ -46,7 +46,6 @@
     <Compile Include="Models\Weather.cs" />
     <Compile Include="Services\DataWeather\DataWeatherService.cs" />
     <Compile Include="Services\DataWeather\IDataWeatherService.cs" />
-    <Compile Include="Constants\WeatherConstants.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
@@ -55,7 +54,6 @@
     <Folder Include="Services\Rest\" />
     <Folder Include="Models\" />
     <Folder Include="Services\DataWeather\" />
-    <Folder Include="Constants\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

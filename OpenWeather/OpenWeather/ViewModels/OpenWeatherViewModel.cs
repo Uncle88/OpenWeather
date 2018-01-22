@@ -7,8 +7,8 @@ namespace OpenWeather.ViewModels
 {
     public class OpenWeatherViewModel : ViewModelBase
     {
-        IDataWeatherService _dataWeatherService;
-        IRestService _restService;
+        private readonly IDataWeatherService _dataWeatherService;
+        private readonly IRestService _restService;
 
         public OpenWeatherViewModel()
         {

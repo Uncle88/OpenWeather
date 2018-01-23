@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using OpenWeather.Models;
 using OpenWeather.Services.DataWeather;
+using OpenWeather.Services.LocalStorage;
 using OpenWeather.Services.Rest;
 
 namespace OpenWeather.ViewModels
@@ -9,6 +10,7 @@ namespace OpenWeather.ViewModels
     {
         private readonly IDataWeatherService _dataWeatherService;
         private readonly IRestService _restService;
+        private readonly ILocalStorageService _localStorageService;
 
         public OpenWeatherViewModel()
         {
@@ -45,11 +47,40 @@ namespace OpenWeather.ViewModels
             get { return _city; }
             set
             {
-                _city = value;
-                Task.Run(async () => {
-                    await InitializeGetWeatherAsync();
-                });
-                OnPropertyChanged();
+                if (_city != value)
+                {
+                    if (value != null)
+                    {
+                        _city = value;
+                        Task.Run(async () =>
+                        {
+                            await InitializeGetWeatherAsync();
+                        });
+                        OnPropertyChanged();
+                    }
+                    else
+                    {
+                        //read from localstorage
+                        Task.Run(async () =>
+                        {
+                            await InitializeGetWeatherAsync2();
+                        });
+                        OnPropertyChanged();
+                    }
+                }
+            }
+        }
+
+        private async Task InitializeGetWeatherAsync2()
+        {
+            try
+            {
+                IsBusy = true;
+                WeatherMainModel = await _localStorageService.PCLReadStorage();
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 
@@ -60,6 +91,9 @@ namespace OpenWeather.ViewModels
                 IsBusy = true;
                 await Task.Delay(1000);
                 WeatherMainModel = await _dataWeatherService.GetWeatherByCityName(_city);
+
+                //write to localstorage
+                await _localStorageService.PCLWriteStorage(WeatherMainModel);
             }
             finally
             {

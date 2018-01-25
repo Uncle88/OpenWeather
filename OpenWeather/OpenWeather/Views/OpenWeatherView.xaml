@@ -32,11 +32,11 @@
              <RowDefinition Height="25" />
          </Grid.RowDefinitions>
          <Grid.ColumnDefinitions>
-             <ColumnDefinition Width="Auto" />
-             <ColumnDefinition Width="Auto" />
-             <ColumnDefinition Width="Auto" />
-             <ColumnDefinition Width="Auto" />
-             <ColumnDefinition Width="70" />
+             <ColumnDefinition Width="1" />
+             <ColumnDefinition Width="1" />
+             <ColumnDefinition Width="150" />
+             <ColumnDefinition Width="130" />
+             <ColumnDefinition Width="30" />
          </Grid.ColumnDefinitions>
         
             <Entry Text="{Binding City, Mode=TwoWay}" Placeholder="Search City" Grid.Row="0" Grid.ColumnSpan="6" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand"/>
@@ -50,16 +50,16 @@
 
             <Label Text="Humidity:" Grid.Row="4" Style="{StaticResource labelStyle}" />
             <Label Text="{Binding WeatherMainModel.main.humidity}" Grid.Row="4" Style="{StaticResource labelStyle2}"/>
-            <Label Text="%" Grid.Row="4" Grid.Column="4" HorizontalOptions="StartAndExpand"/>
+            <Label Text="%" Grid.Row="4" Grid.Column="4" HorizontalOptions="Start"/>
 
             <Label Text="Wind Speed:" Grid.Row="5" Style="{StaticResource labelStyle}"/>
             <Label Text="{Binding WeatherMainModel.wind.speed}" Grid.Row="5" Style="{StaticResource labelStyle2}"/>
-            <Label Text="m/s" Grid.Row="5" Grid.Column="4" HorizontalOptions="StartAndExpand"/>
+            <Label Text="m/s" Grid.Row="5" Grid.Column="4" HorizontalOptions="Start"/>
 
-            <Label Text="Weather Main Status:" Grid.Row="6" Style="{StaticResource labelStyle}"/>
+            <Label Text="WeatherMain:" Grid.Row="6" Style="{StaticResource labelStyle}"/>
             <Label Text="{Binding WeatherMainModel.weather[0].main}" Grid.Row="6" Style="{StaticResource labelStyle2}"/>
 
-            <Label Text="Weather Status:" Grid.Row="7" Style="{StaticResource labelStyle}"/>
+            <Label Text="WeatherStatus:" Grid.Row="7" Style="{StaticResource labelStyle}"/>
             <Label Text="{Binding WeatherMainModel.weather[0].description}" Grid.Row="7" Style="{StaticResource labelStyle2}"/>
 
            

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-using OpenWeather.Models;
-using PCLStorage;
+﻿using System.Threading.Tasks;
 
 namespace OpenWeather.Services.LocalStorage
 {
     public interface ILocalStorageService
     {
-        Task PCLWriteStorage(WeatherMainModel _weatherMainModel);
-        Task<WeatherMainModel> PCLReadStorage();
+        Task PCLWriteStorage<WeatherMainModel>(WeatherMainModel _weatherMainModel);
+        Task<WeatherMainModel> PCLReadStorage<WeatherMainModel>();
+        void ClearStorage();
     }
 }

@@ -13,8 +13,8 @@ namespace OpenWeather.Services.Rest
             {
                 using (var responce = await client.GetAsync(url))
                 {
-                        json = await responce.Content.ReadAsStringAsync().ConfigureAwait(false);
-                        return JsonConvert.DeserializeObject<T>(json);
+                    json = await responce.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    return JsonConvert.DeserializeObject<T>(json);
                 }
             }
         }

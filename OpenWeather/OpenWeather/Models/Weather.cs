@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace OpenWeather.Models
@@ -13,11 +11,6 @@ namespace OpenWeather.Models
         public List<WeatherSubDetails> weather { get; set; }
         public WeatherWindDetails wind { get; set; }
         public WeatherSysDetails sys { get; set; }
-
-        public static implicit operator WeatherMainModel(Task<string> v)
-        {
-            throw new NotImplementedException();
-        }
     }
 
     public class WeatherSubDetails

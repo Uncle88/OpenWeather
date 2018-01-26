@@ -62,16 +62,6 @@ namespace OpenWeather.Services.LocalStorage
                 }
             }
             return default(WeatherMainModel);
-            //IFolder rootFolder = FileSystem.Current.LocalStorage;
-            //ExistenceCheckResult exist = await rootFolder.CheckExistsAsync(".txt");
-
-            //string _text = null;
-            //if (exist == ExistenceCheckResult.FileExists)
-            //{
-            //    IFile file = await rootFolder.GetFileAsync(".txt");
-            //    _text = await file.ReadAllTextAsync();  
-            //}
-            //return (WeatherMainModel)Convert.ChangeType(_text, typeof(WeatherMainModel));
         }
 
         public async Task PCLWriteStorage<WeatherMainModel>(WeatherMainModel _weatherMainModel)

@@ -3,6 +3,8 @@ using OpenWeather.Models;
 using OpenWeather.Services.DataWeather;
 using OpenWeather.Services.LocalStorage;
 using OpenWeather.Services.Rest;
+using OpenWeather.Views;
+using Xamarin.Forms;
 
 namespace OpenWeather.ViewModels
 {
@@ -12,14 +14,16 @@ namespace OpenWeather.ViewModels
         private readonly IRestService _restService;
         private readonly ILocalStorageService _localStorageService = null;
 
-        public OpenWeatherViewModel()
+        public OpenWeatherViewModel(INavigation navigation)
         {
+            Navigation = navigation;
             _dataWeatherService = new DataWeatherService();
             _restService = new RestService();
             _localStorageService = new LocalStorageService();
 
             ReadFromPCLStorage();
         }
+        public INavigation Navigation { get; internal set; }
 
         private WeatherMainModel _weatherMainModel; 
         public WeatherMainModel WeatherMainModel
@@ -108,5 +112,19 @@ namespace OpenWeather.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        private Command _clickCommandMove;
+        public Command ClickCommandMove
+        {
+            get
+            {
+                return  _clickCommandMove = _clickCommandMove ?? new Command(async () =>
+                    {
+                    await Navigation.PushAsync(new MapView());
+                });
+            }
+        }
+
+
     }
 }

@@ -39,7 +39,7 @@
              <ColumnDefinition Width="130" />
              <ColumnDefinition Width="30" />
          </Grid.ColumnDefinitions>
-        <Button Text="Map" Command="{Binding ClickCommandMove}" HorizontalOptions="EndAndExpand" FontSize="30" FontAttributes="Bold" Grid.Row="0" Grid.ColumnSpan="6" WidthRequest="75" HeightRequest="35"/>
+        <Button Text="Map ->" Command="{Binding ClickCommandMove}" HorizontalOptions="EndAndExpand" FontSize="30" FontAttributes="Bold" Grid.Row="0" Grid.ColumnSpan="6" WidthRequest="125" HeightRequest="35"/>
         <Entry Text="{Binding City, Mode=TwoWay}" Placeholder="Search City" Grid.Row="1" Grid.ColumnSpan="6" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand"/>
             
          <Label Text="{Binding WeatherMainModel.name}" FontSize="30" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Grid.Row="2" Grid.ColumnSpan="6"/>

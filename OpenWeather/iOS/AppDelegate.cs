@@ -17,6 +17,8 @@ namespace OpenWeather.iOS
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
+
+            Xamarin.FormsMaps.Init();
         }
     }
 }

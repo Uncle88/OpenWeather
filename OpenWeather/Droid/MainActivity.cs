@@ -7,6 +7,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Xamarin;
 
 namespace OpenWeather.Droid
 {
@@ -23,6 +24,13 @@ namespace OpenWeather.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
             LoadApplication(new App());
+
+            Xamarin.FormsMaps.Init(this, bundle);
+
+            Xamarin.Forms.Forms.Init(this, bundle);
+            FormsMaps.Init(this, bundle);
+
+           //var page =SetPage(App.GetMainPage());
         }
     }
 }

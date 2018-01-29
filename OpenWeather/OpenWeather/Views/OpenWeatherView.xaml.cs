@@ -9,7 +9,7 @@ namespace OpenWeather
         public OpenWeatherView()
         {
             InitializeComponent();
-            BindingContext = new OpenWeatherViewModel();
+            BindingContext = new OpenWeatherViewModel(Navigation);
         }
     }
 }

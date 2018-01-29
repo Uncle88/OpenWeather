@@ -4,6 +4,8 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using Xamarin;
+using Xamarin.Forms;
 
 namespace OpenWeather.iOS
 {
@@ -14,6 +16,8 @@ namespace OpenWeather.iOS
         {
             global::Xamarin.Forms.Forms.Init();
 
+            Forms.Init();
+            FormsMaps.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

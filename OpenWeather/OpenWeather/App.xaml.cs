@@ -1,4 +1,5 @@
 ﻿using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 
 namespace OpenWeather
 {
@@ -8,7 +9,7 @@ namespace OpenWeather
         {
             InitializeComponent();
 
-            MainPage = new OpenWeatherView();
+            MainPage = new NavigationPage(new OpenWeatherView());
         }
 
         protected override void OnStart()

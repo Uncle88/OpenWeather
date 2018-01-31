@@ -56,7 +56,7 @@ namespace OpenWeather.Services.LocalStorage
                     XmlSerializer oXmlSerializer = new XmlSerializer(typeof(WeatherMainModel));
                     return (WeatherMainModel)oXmlSerializer.Deserialize(new StringReader(languageString));
                 }
-                catch (Exception ex)
+                catch
                 {
                     return default(WeatherMainModel);
                 }

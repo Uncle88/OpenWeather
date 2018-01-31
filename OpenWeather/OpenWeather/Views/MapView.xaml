@@ -5,10 +5,11 @@
     x:Class="OpenWeather.Views.MapView">
     <ContentPage.Content>
          <StackLayout VerticalOptions="StartAndExpand">
-        <maps:Map WidthRequest="400" HeightRequest="600"
+        <maps:Map WidthRequest="400" HeightRequest="560"
             x:Name="MyMap"
             IsShowingUser="true"
             MapType="Street"/>
+            <Slider Minimum="0" Maximum="5" Value="0" />
     </StackLayout>
     </ContentPage.Content>
 </ContentPage>

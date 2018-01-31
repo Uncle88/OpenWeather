@@ -3,7 +3,6 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using OpenWeather.Models;
 using OpenWeather.Services.Rest;
 using PCLStorage;
 
@@ -31,7 +30,7 @@ namespace OpenWeather.Services.LocalStorage
                     IFile file = await folder.CreateFileAsync(".txt",CreationCollisionOption.OpenIfExists);
                     await file.DeleteAsync();
                 }
-                catch //(Exception ex)
+                catch
                 {
                     return ;
                 }

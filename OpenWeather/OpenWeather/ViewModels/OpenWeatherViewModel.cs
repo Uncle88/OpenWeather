@@ -72,6 +72,10 @@ namespace OpenWeather.ViewModels
         private async Task ReadFromPCLStorage()
         {
             WeatherMainModel = await _localStorageService.PCLReadStorage<WeatherMainModel>();
+            await Task.Delay(3000);
+            WeatherMainModel = await _dataWeatherService.GetWeatherByCityName(WeatherMainModel.name);
+            WriteToPCLStorage();
+            OnPropertyChanged();
         }
 
         private async Task InitializeGetWeatherAsync()

@@ -1,6 +1,5 @@
-﻿using System;
-using OpenWeather.Models;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 
 namespace OpenWeather.ViewModels
 {

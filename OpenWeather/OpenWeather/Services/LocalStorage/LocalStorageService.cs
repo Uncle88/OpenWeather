@@ -24,14 +24,14 @@ namespace OpenWeather.Services.LocalStorage
             IFolder folder = await rootFolder.CreateFolderAsync("Cache",CreationCollisionOption.OpenIfExists);
             ExistenceCheckResult isFileExisting = await folder.CheckExistsAsync(".txt");
 
-            if (!isFileExisting.ToString().Equals("NotFound"))
+            if (isFileExisting.ToString().Equals("NotFound"))//!
             {
                 try
                 {
                     IFile file = await folder.CreateFileAsync(".txt",CreationCollisionOption.OpenIfExists);
                     await file.DeleteAsync();
                 }
-                catch (Exception ex)
+                catch //(Exception ex)
                 {
                     return ;
                 }

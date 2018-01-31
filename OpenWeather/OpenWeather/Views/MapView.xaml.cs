@@ -13,14 +13,20 @@ namespace OpenWeather.Views
             InitializeComponent();
             BindingContext = new MapViewModel();
 
-            //CurrentLocation();
-        }
-
-        private async void CurrentLocation()
-        {
-            var locator = CrossGeolocator.Current;
-            var position = await locator.GetPositionAsync();
-            MyMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), Distance.FromKilometers(1)));
+             var map = new Map(
+             MapSpan.FromCenterAndRadius(
+                     new Position(48.45, 35), Distance.FromKilometers(100)))
+            {
+                IsShowingUser = true,
+                HeightRequest = 560,
+                WidthRequest = 400,
+                VerticalOptions = LayoutOptions.FillAndExpand
+            };
+            var stack = new StackLayout { Spacing = 0 };
+            var slider = new Slider(0,5,0);
+            stack.Children.Add(map);
+            stack.Children.Add(slider);
+            Content = stack;
         }
     }
 }

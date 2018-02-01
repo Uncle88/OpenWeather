@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using OpenWeather.Models;
 using OpenWeather.Services.DataWeather;
 using OpenWeather.Services.LocalStorage;
@@ -12,7 +13,7 @@ namespace OpenWeather.ViewModels
     {
         private readonly IDataWeatherService _dataWeatherService;
         private readonly IRestService _restService;
-        private readonly ILocalStorageService _localStorageService = null;
+        private readonly ILocalStorageService _localStorageService;
 
         public OpenWeatherViewModel(INavigation navigation)
         {
@@ -20,9 +21,13 @@ namespace OpenWeather.ViewModels
             _dataWeatherService = new DataWeatherService();
             _restService = new RestService();
             _localStorageService = new LocalStorageService();
-
-            ReadFromPCLStorage();
         }
+
+        public override async void Initialize()
+        {
+            await ReadFromPCLStorage();
+        }
+
         public INavigation Navigation { get; internal set; }
 
         private WeatherMainModel _weatherMainModel; 
@@ -71,11 +76,11 @@ namespace OpenWeather.ViewModels
 
         private async Task ReadFromPCLStorage()
         {
-            WeatherMainModel = await _localStorageService.PCLReadStorage<WeatherMainModel>();
-            await Task.Delay(3000);
-            WeatherMainModel = await _dataWeatherService.GetWeatherByCityName(WeatherMainModel.name);
-            WriteToPCLStorage();
-            OnPropertyChanged();
+                WeatherMainModel = await _localStorageService.PCLReadStorage<WeatherMainModel>();
+                await Task.Delay(3000);
+                WeatherMainModel = await _dataWeatherService.GetWeatherByCityName(WeatherMainModel.name);
+                WriteToPCLStorage();
+                OnPropertyChanged();
         }
 
         private async Task InitializeGetWeatherAsync()

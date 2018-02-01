@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+<views:BaseView xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+    xmlns:views="clr-namespace:OpenWeather.Views;assembly=OpenWeather"
     x:Class="OpenWeather.Views.MapView">
     <ContentPage.Content>
     <StackLayout VerticalOptions="StartAndExpand">
@@ -14,4 +15,4 @@
             <Slider Minimum="0" Maximum="5" Value="0" />
         </StackLayout>
     </ContentPage.Content>
-</ContentPage>
+</views:BaseView>

@@ -23,7 +23,7 @@ namespace OpenWeather.Services.LocalStorage
             IFolder folder = await rootFolder.CreateFolderAsync("Cache",CreationCollisionOption.OpenIfExists);
             ExistenceCheckResult isFileExisting = await folder.CheckExistsAsync(".txt");
 
-            if (isFileExisting.ToString().Equals("NotFound"))//!
+            if (!isFileExisting.ToString().Equals("NotFound"))//!
             {
                 try
                 {
@@ -41,10 +41,9 @@ namespace OpenWeather.Services.LocalStorage
         {
             IFolder rootFolder = FileSystem.Current.LocalStorage;
             IFolder folder = await rootFolder.CreateFolderAsync("Cache",CreationCollisionOption.OpenIfExists);
-
             ExistenceCheckResult isFileExisting = await folder.CheckExistsAsync(".txt");
 
-            if (!isFileExisting.ToString().Equals("NotFound"))
+            if (isFileExisting.ToString().Equals("NotFound"))
             {
                 try
                 {
@@ -55,7 +54,7 @@ namespace OpenWeather.Services.LocalStorage
                     XmlSerializer oXmlSerializer = new XmlSerializer(typeof(WeatherMainModel));
                     return (WeatherMainModel)oXmlSerializer.Deserialize(new StringReader(languageString));
                 }
-                catch
+                catch(Exception ex)
                 {
                     return default(WeatherMainModel);
                 }

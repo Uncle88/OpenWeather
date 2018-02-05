@@ -20,9 +20,25 @@ namespace OpenWeather.ViewModels
             _dataWeatherService = new DataWeatherService();
             _restService = new RestService();
             _localStorageService = new LocalStorageService();
-
-            ReadFromPCLStorage();
         }
+
+        public override async void Initialize()
+        {
+            base.Initialize();
+            if (_localStorageService == null)
+            {
+                await Task.Run(async () =>
+                {
+                    await InitializeGetWeatherAsync();
+                });
+                OnPropertyChanged();
+            }
+            else
+            {
+                await ReadFromPCLStorage();
+            }
+        }
+
         public INavigation Navigation { get; internal set; }
 
         private WeatherMainModel _weatherMainModel; 
@@ -54,17 +70,14 @@ namespace OpenWeather.ViewModels
             get { return _city; }
             set
             {
-                if (value == _city) return;
+                if (value != null && value != _city)
                 {
-                    if (value != null)
-                    {
-                        _city = value;
-                        Task.Run(async () =>
-                        {
-                            await InitializeGetWeatherAsync();
-                        });
-                        OnPropertyChanged();
-                    }
+                    _city = value;
+                    //Task.Run(async () =>
+                    //{
+                    //    await InitializeGetWeatherAsync();
+                    //});
+                    OnPropertyChanged();
                 }
             }
         }
@@ -83,7 +96,7 @@ namespace OpenWeather.ViewModels
             try
             {
                 IsBusy = true;
-                await Task.Delay(1000);
+                await Task.Delay(2000);
                 WeatherMainModel = await _dataWeatherService.GetWeatherByCityName(_city);
                 WriteToPCLStorage();
             }

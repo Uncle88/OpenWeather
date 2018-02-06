@@ -14,7 +14,6 @@ namespace OpenWeather.ViewModels
         }
 
         public virtual void Initialize(){}
-
         public virtual void Deinitialize(){}
     }
 }

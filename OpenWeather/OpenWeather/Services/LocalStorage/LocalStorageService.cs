@@ -20,19 +20,19 @@ namespace OpenWeather.Services.LocalStorage
         public async void ClearStorage()
         {
             IFolder rootFolder = FileSystem.Current.LocalStorage;
-            IFolder folder = await rootFolder.CreateFolderAsync("Cache",CreationCollisionOption.OpenIfExists);
+            IFolder folder = await rootFolder.CreateFolderAsync("Cache", CreationCollisionOption.OpenIfExists);
             ExistenceCheckResult isFileExisting = await folder.CheckExistsAsync(".txt");
 
-            if (!isFileExisting.ToString().Equals("NotFound"))//!
+            if (isFileExisting == ExistenceCheckResult.FileExists)
             {
                 try
                 {
-                    IFile file = await folder.CreateFileAsync(".txt",CreationCollisionOption.OpenIfExists);
+                    IFile file = await folder.CreateFileAsync(".txt", CreationCollisionOption.OpenIfExists);
                     await file.DeleteAsync();
                 }
                 catch
                 {
-                    return ;
+                    return;
                 }
             }
         }
@@ -40,21 +40,21 @@ namespace OpenWeather.Services.LocalStorage
         public async Task<WeatherMainModel> PCLReadStorage<WeatherMainModel>()
         {
             IFolder rootFolder = FileSystem.Current.LocalStorage;
-            IFolder folder = await rootFolder.CreateFolderAsync("Cache",CreationCollisionOption.OpenIfExists);
+            IFolder folder = await rootFolder.CreateFolderAsync("Cache", CreationCollisionOption.OpenIfExists);
             ExistenceCheckResult isFileExisting = await folder.CheckExistsAsync(".txt");
 
-            if (!isFileExisting.ToString().Equals("NotFound"))
+            if (isFileExisting == ExistenceCheckResult.FileExists)
             {
                 try
                 {
-                    IFile file = await folder.CreateFileAsync(".txt",CreationCollisionOption.OpenIfExists);
+                    IFile file = await folder.CreateFileAsync(".txt", CreationCollisionOption.OpenIfExists);
 
                     String languageString = await file.ReadAllTextAsync();
 
                     XmlSerializer oXmlSerializer = new XmlSerializer(typeof(WeatherMainModel));
                     return (WeatherMainModel)oXmlSerializer.Deserialize(new StringReader(languageString));
                 }
-                catch(Exception ex)
+                catch
                 {
                     return default(WeatherMainModel);
                 }
@@ -72,8 +72,8 @@ namespace OpenWeather.Services.LocalStorage
             }
 
             IFolder rootFolder = FileSystem.Current.LocalStorage;
-            IFolder folder = await rootFolder.CreateFolderAsync("Cache",CreationCollisionOption.OpenIfExists);
-            IFile file = await folder.CreateFileAsync(".txt",CreationCollisionOption.ReplaceExisting);
+            IFolder folder = await rootFolder.CreateFolderAsync("Cache", CreationCollisionOption.OpenIfExists);
+            IFile file = await folder.CreateFileAsync(".txt", CreationCollisionOption.ReplaceExisting);
             await file.WriteAllTextAsync(doc.ToString());
         }
     }

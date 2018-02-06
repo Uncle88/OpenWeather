@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace OpenWeather
 {
-    public partial class OpenWeatherView : BaseView// ContentPage//BaseView
+    public partial class OpenWeatherView : BaseView
     {
         public OpenWeatherView()
         {

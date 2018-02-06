@@ -25,7 +25,6 @@ namespace OpenWeather.ViewModels
 
         public override async void Initialize()
         {
-            base.Initialize();
             await ReadFromPCLStorage();
         }
 
@@ -81,7 +80,6 @@ namespace OpenWeather.ViewModels
                 await Task.Delay(3000);
                 WeatherMainModel = await _dataWeatherService.GetWeatherByCityName(WeatherMainModel.name);
                 WriteToPCLStorage();
-                OnPropertyChanged();
             }
         }
 
@@ -92,7 +90,6 @@ namespace OpenWeather.ViewModels
                 IsBusy = true;
                 WeatherMainModel = await _dataWeatherService.GetWeatherByCityName(_city);
                 WriteToPCLStorage();
-                OnPropertyChanged();
             }
             finally
             {

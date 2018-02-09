@@ -12,5 +12,8 @@ namespace OpenWeather.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public virtual void Initialize(){}
+        public virtual void Deinitialize(){}
     }
 }

@@ -1,10 +1,9 @@
-﻿using OpenWeather.Models;
-using OpenWeather.ViewModels;
-using Xamarin.Forms;
+﻿using OpenWeather.ViewModels;
+using OpenWeather.Views;
 
 namespace OpenWeather
 {
-    public partial class OpenWeatherView : ContentPage
+    public partial class OpenWeatherView : BaseView
     {
         public OpenWeatherView()
         {

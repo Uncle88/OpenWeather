@@ -1,10 +1,9 @@
 ﻿using OpenWeather.ViewModels;
-using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 
 namespace OpenWeather.Views
 {
-    public partial class MapView : ContentPage
+    public partial class MapView : BaseView
     {
         public MapView()
         {

@@ -9,8 +9,9 @@ namespace OpenWeather.Views
         {
             InitializeComponent();
             BindingContext = new MapViewModel();
+            MapViewModel.Map = MyMap;
 
-            MyMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(48.45, 35), Distance.FromKilometers(100)));
+            //MyMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(48.45, 35), Distance.FromKilometers(100)));
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using OpenWeather.ViewModels;
-using Xamarin.Forms.Maps;
 
 namespace OpenWeather.Views
 {
@@ -10,8 +9,6 @@ namespace OpenWeather.Views
             InitializeComponent();
             BindingContext = new MapViewModel();
             MapViewModel.Map = MyMap;
-
-            //MyMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(48.45, 35), Distance.FromKilometers(100)));
         }
     }
 }

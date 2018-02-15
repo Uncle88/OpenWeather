@@ -12,7 +12,7 @@ namespace OpenWeather.ViewModels
     {
         private readonly IDataWeatherService _dataWeatherService;
         private readonly IRestService _restService;
-        private readonly ILocalStorageService _localStorageService = null;
+        private readonly ILocalStorageService _localStorageService;
 
         public OpenWeatherViewModel(INavigation navigation)
         {

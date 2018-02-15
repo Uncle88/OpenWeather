@@ -4,25 +4,27 @@
     xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
     xmlns:views="clr-namespace:OpenWeather.Views;assembly=OpenWeather"
     x:Class="OpenWeather.Views.MapView">
-    <ContentPage.Content>
-        <StackLayout VerticalOptions="StartAndExpand">
-            <maps:Map
+    <ScrollView>
+        <ContentPage.Content>
+            <StackLayout VerticalOptions="StartAndExpand">
+                <maps:Map
                 WidthRequest="400" 
                 HeightRequest="520" 
                 x:Name="MyMap"
                 IsShowingUser="true"
                 MapType="Street"/> 
-            <Slider x:Name="slider" Minimum="0" Maximum="5" Value="0"/>
-            <Grid HeightRequest="40">
-            <Button Text="Standard" Command="{Binding ClickStandard}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="Silver"
-                FontSize="30" BorderRadius="5" Grid.Row="0" Grid.Column="0"/>
+                <Slider x:Name="slider" Minimum="0" Maximum="5" Value="0"/>
+                <Grid HeightRequest="40">
+                    <Button Text="Standard" Command="{Binding ClickStandard}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="Silver"
+                            FontSize="30" BorderRadius="5" Grid.Row="0" Grid.Column="0"/>
                 
-            <Button Text="Hybrid" Command="{Binding ClickHybrid}"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="Red"
-                FontSize="30" BorderRadius="5" Grid.Row="0" Grid.Column="1"/>
-                
-            <Button Text="Satellite" Command="{Binding ClickSatellite}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="Green" 
-                FontSize="30" BorderRadius="5" Grid.Row="0" Grid.Column="2"/>
-            </Grid>
-        </StackLayout>
-    </ContentPage.Content>
+                    <Button Text="Hybrid" Command="{Binding ClickHybrid}"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="Red"
+                            FontSize="30" BorderRadius="5" Grid.Row="0" Grid.Column="1"/>
+
+                    <Button Text="Satellite" Command="{Binding ClickSatellite}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="Green" 
+                            FontSize="30" BorderRadius="5" Grid.Row="0" Grid.Column="2"/>
+                </Grid>
+            </StackLayout>
+        </ContentPage.Content>
+    </ScrollView>
 </views:BaseView>

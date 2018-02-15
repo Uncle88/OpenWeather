@@ -1,4 +1,5 @@
 ﻿using OpenWeather.ViewModels;
+using Xamarin.Forms;
 
 namespace OpenWeather.Views
 {
@@ -9,6 +10,7 @@ namespace OpenWeather.Views
             InitializeComponent();
             BindingContext = new MapViewModel();
             MapViewModel.Map = MyMap;
+            MapViewModel.SliderMain = slider;
         }
     }
 }

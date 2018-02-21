@@ -25,9 +25,4 @@ namespace OpenWeather.Renderer
                 handler(this, e);
         }
     }
-
-    public class MapTapEventArgs : EventArgs
-    {
-        public Position Position { get; set; }
-    }
 }

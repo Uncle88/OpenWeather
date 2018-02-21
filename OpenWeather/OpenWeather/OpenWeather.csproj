@@ -58,6 +58,7 @@
     <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="Views\BaseView.cs" />
     <Compile Include="Renderer\ExtMap.cs" />
+    <Compile Include="Renderer\MapTapEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />

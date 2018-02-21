@@ -21,19 +21,19 @@ namespace OpenWeather.Services.DataWeather
             return _restService.GetAsync<WeatherMainModel>(CreateQueryStructureByCityName(cityName));
         }
 
+        private string CreateQueryStructureByCityName(string cityName)
+        {
+            return $"{BaseUrl}weather?q={cityName}&appid={Key}&units=metric";
+        }
+
         public Task<WeatherMainModel> GetWeatherByGeoCoordinate(double Latitude, double Longitude)
         {
-            return _restService.GetAsync<WeatherMainModel>(CreateQueryStructureByGeoCoordinate(Latitude, Longitude);
+            return _restService.GetAsync<WeatherMainModel>(CreateQueryStructureByGeoCoordinate(Latitude, Longitude));
         }
 
         private string CreateQueryStructureByGeoCoordinate(double latitude, double longitude)
         {
-            return $"{BaseUrl}weather?lat={latitude}&lon={longitude}&units=metric";
-        }
-
-        private string CreateQueryStructureByCityName(string cityName)
-        {
-            return $"{BaseUrl}weather?q={cityName}&appid={Key}&units=metric";
+            return $"{BaseUrl}weather?lat={latitude}&lon={longitude}&appid={Key}&units=metric";
         }
     }
 }

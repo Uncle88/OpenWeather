@@ -1,10 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using OpenWeather.Models;
 using OpenWeather.Services.DataWeather;
 using OpenWeather.Services.LocalStorage;
 using OpenWeather.Services.Rest;
 using OpenWeather.Views;
+using Plugin.Geolocator;
 using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 
 namespace OpenWeather.ViewModels
 {
@@ -27,7 +30,48 @@ namespace OpenWeather.ViewModels
             await ReadFromPCLStorage();
         }
 
+        public async Task DataWeatherFromGeoLocator()
+        {
+            var locator = CrossGeolocator.Current;
+            TimeSpan ts = TimeSpan.FromMilliseconds(10000);
+            locator.DesiredAccuracy = 50;
+            await locator.StartListeningAsync(ts, 200);
+            var position = await locator.GetPositionAsync();
+            var pos = new Position(position.Latitude, position.Longitude);
+
+            WeatherMainModel = await _dataWeatherService.GetWeatherByGeoCoordinate(pos.Latitude,pos.Longitude);
+        }
+
+        private async Task ReadFromPCLStorage()
+        {
+            var getStorageResult = await _localStorageService.PCLReadStorage<WeatherMainModel>();
+            if (getStorageResult != null)
+            {
+                WeatherMainModel = getStorageResult;
+                await Task.Delay(3000);
+                await DataWeatherFromGeoLocator();
+                OnPropertyChanged();
+                WriteToPCLStorage();
+
+            }
+            else
+            {
+                await DataWeatherFromGeoLocator();
+                OnPropertyChanged();
+                WriteToPCLStorage();
+
+            }
+        }
+
+        private void WriteToPCLStorage()
+        {
+            _localStorageService.ClearStorage();
+            _localStorageService.PCLWriteStorage(WeatherMainModel);
+        }
+
+
         public INavigation Navigation { get; internal set; }
+        public static Map Map { get; set; }
 
         private WeatherMainModel _weatherMainModel; 
         public WeatherMainModel WeatherMainModel
@@ -51,61 +95,6 @@ namespace OpenWeather.ViewModels
                 OnPropertyChanged();
             }
         }
-    
-        private string _city; 
-        public string City
-        {
-            get { return _city; }
-            set
-            {
-                if (value == _city) return;
-                {
-                    if (value != null)
-                    {
-                        _city = value;
-                        Task.Run(async () =>
-                        {
-                            await InitializeGetWeatherAsync();
-                        });
-                        OnPropertyChanged();
-                    }
-                }
-            }
-        }
-
-        private async Task ReadFromPCLStorage()
-        {
-            var getStorageResult = await _localStorageService.PCLReadStorage<WeatherMainModel>();
-            if (getStorageResult != null)
-            {
-                WeatherMainModel = getStorageResult;
-                await Task.Delay(3000);
-                WeatherMainModel = await _dataWeatherService.GetWeatherByCityName(WeatherMainModel.name);
-                WriteToPCLStorage();
-                OnPropertyChanged();
-            }
-        }
-
-        private async Task InitializeGetWeatherAsync()
-        {
-            try
-            {
-                IsBusy = true;
-                await Task.Delay(1000);
-                WeatherMainModel = await _dataWeatherService.GetWeatherByCityName(_city);
-                WriteToPCLStorage();
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        private void WriteToPCLStorage()
-        {
-                _localStorageService.ClearStorage();
-                _localStorageService.PCLWriteStorage(WeatherMainModel);
-        }
 
         private bool _isBusy;
         public bool IsBusy
@@ -113,8 +102,11 @@ namespace OpenWeather.ViewModels
             get { return _isBusy; }
             set
             {
-                _isBusy = value;
-                OnPropertyChanged();
+                if (_isBusy != value)
+                {
+                    _isBusy = value;
+                    OnPropertyChanged();
+                }
             }
         }
 

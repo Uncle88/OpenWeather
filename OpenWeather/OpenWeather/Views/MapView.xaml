@@ -4,7 +4,6 @@
     xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
     xmlns:views="clr-namespace:OpenWeather.Views;assembly=OpenWeather"
     x:Class="OpenWeather.Views.MapView">
-    <ScrollView>
         <ContentPage.Content>
             <StackLayout VerticalOptions="StartAndExpand">
                 <maps:Map
@@ -13,7 +12,6 @@
                 x:Name="MyMap"
                 IsShowingUser="true"
                 MapType="Street"/> 
-                <Slider x:Name="slider" Minimum="0" Maximum="5" Value="0"/>
                 <Grid HeightRequest="40">
                     <Button Text="Standard" Command="{Binding ClickStandard}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="Silver"
                             FontSize="30" BorderRadius="5" Grid.Row="0" Grid.Column="0"/>
@@ -26,5 +24,4 @@
                 </Grid>
             </StackLayout>
         </ContentPage.Content>
-    </ScrollView>
 </views:BaseView>

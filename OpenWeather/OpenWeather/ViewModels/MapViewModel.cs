@@ -16,7 +16,6 @@ namespace OpenWeather.ViewModels
             var locator = CrossGeolocator.Current;
             TimeSpan ts = TimeSpan.FromMilliseconds(10000);
             locator.DesiredAccuracy = 50;
-            //await locator.StartListeningAsync(ts, 200);
             var position = await locator.GetPositionAsync();
             Map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), Distance.FromKilometers(100)));
         }

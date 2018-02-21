@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="Views\BaseView.cs" />
+    <Compile Include="Renderer\ExtMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
@@ -66,6 +67,7 @@
     <Folder Include="Models\" />
     <Folder Include="Services\DataWeather\" />
     <Folder Include="Services\LocalStorage\" />
+    <Folder Include="Renderer\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PCLStorage.Abstractions">

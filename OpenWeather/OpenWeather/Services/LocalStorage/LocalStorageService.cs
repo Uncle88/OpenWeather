@@ -10,6 +10,8 @@ namespace OpenWeather.Services.LocalStorage
 {
     public class LocalStorageService : ILocalStorageService
     {
+        private const string FileName = "file.txt";
+        private const string FolderName = "Cache";
         private readonly RestService _restService;
 
         public LocalStorageService()
@@ -17,20 +19,28 @@ namespace OpenWeather.Services.LocalStorage
             _restService = new RestService();
         }
 
+        private Task<IFolder> CreateFolder()
+        {
+			IFolder rootFolder = FileSystem.Current.LocalStorage;
+            return rootFolder.CreateFolderAsync(FolderName, CreationCollisionOption.OpenIfExists);
+        }
+
         public async void ClearStorage()
         {
-            IFolder rootFolder = FileSystem.Current.LocalStorage;
-            IFolder folder = await rootFolder.CreateFolderAsync("Cache",CreationCollisionOption.OpenIfExists);
-            ExistenceCheckResult isFileExisting = await folder.CheckExistsAsync(".txt");
+            var folder = await CreateFolder();
+            if (folder == null)
+                return;
+            
+            ExistenceCheckResult isFileExisting = await folder.CheckExistsAsync(FileName);
 
-            if (isFileExisting.ToString().Equals("NotFound"))//!
+            if (isFileExisting != ExistenceCheckResult.NotFound)
             {
                 try
                 {
-                    IFile file = await folder.CreateFileAsync(".txt",CreationCollisionOption.OpenIfExists);
+                    IFile file = await folder.CreateFileAsync(FileName,CreationCollisionOption.OpenIfExists);
                     await file.DeleteAsync();
                 }
-                catch
+                catch(Exception ex)
                 {
                     return ;
                 }
@@ -39,23 +49,21 @@ namespace OpenWeather.Services.LocalStorage
 
         public async Task<WeatherMainModel> PCLReadStorage<WeatherMainModel>()
         {
-            IFolder rootFolder = FileSystem.Current.LocalStorage;
-            IFolder folder = await rootFolder.CreateFolderAsync("Cache",CreationCollisionOption.OpenIfExists);
+            var folder = await CreateFolder();
+            ExistenceCheckResult isFileExisting = await folder.CheckExistsAsync(FileName);
 
-            ExistenceCheckResult isFileExisting = await folder.CheckExistsAsync(".txt");
-
-            if (!isFileExisting.ToString().Equals("NotFound"))
+            if (isFileExisting != ExistenceCheckResult.NotFound)
             {
                 try
                 {
-                    IFile file = await folder.CreateFileAsync(".txt",CreationCollisionOption.OpenIfExists);
+                    IFile file = await folder.CreateFileAsync(FileName,CreationCollisionOption.OpenIfExists);
 
                     String languageString = await file.ReadAllTextAsync();
 
                     XmlSerializer oXmlSerializer = new XmlSerializer(typeof(WeatherMainModel));
                     return (WeatherMainModel)oXmlSerializer.Deserialize(new StringReader(languageString));
                 }
-                catch
+                catch(Exception ex)
                 {
                     return default(WeatherMainModel);
                 }
@@ -72,10 +80,16 @@ namespace OpenWeather.Services.LocalStorage
                 serializer.Serialize(writer, _weatherMainModel);
             }
 
-            IFolder rootFolder = FileSystem.Current.LocalStorage;
-            IFolder folder = await rootFolder.CreateFolderAsync("Cache",CreationCollisionOption.OpenIfExists);
-            IFile file = await folder.CreateFileAsync(".txt",CreationCollisionOption.ReplaceExisting);
-            await file.WriteAllTextAsync(doc.ToString());
+            try
+            {
+                var folder = await CreateFolder();
+                IFile file = await folder.CreateFileAsync(FileName, CreationCollisionOption.ReplaceExisting);
+                await file.WriteAllTextAsync(doc.ToString());
+            }
+            catch(Exception ex)
+            {
+                return;
+            }
         }
     }
 }

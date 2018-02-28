@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using OpenWeather.Models;
 using OpenWeather.Services.Rest;
 
@@ -23,6 +24,16 @@ namespace OpenWeather.Services.DataWeather
         private string CreateQueryStructureByCityName(string cityName)
         {
             return $"{BaseUrl}weather?q={cityName}&appid={Key}&units=metric";
+        }
+
+        public Task<WeatherMainModel> GetWeatherByGeoCoordinate(double Latitude, double Longitude)
+        {
+            return _restService.GetAsync<WeatherMainModel>(CreateQueryStructureByGeoCoordinate(Latitude, Longitude));
+        }
+
+        private string CreateQueryStructureByGeoCoordinate(double latitude, double longitude)
+        {
+            return $"{BaseUrl}weather?lat={latitude}&lon={longitude}&appid={Key}&units=metric";
         }
     }
 }

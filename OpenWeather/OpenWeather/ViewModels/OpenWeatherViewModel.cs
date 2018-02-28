@@ -1,10 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using OpenWeather.Models;
 using OpenWeather.Services.DataWeather;
 using OpenWeather.Services.LocalStorage;
 using OpenWeather.Services.Rest;
 using OpenWeather.Views;
+using Plugin.Geolocator;
 using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 
 namespace OpenWeather.ViewModels
 {
@@ -12,7 +15,7 @@ namespace OpenWeather.ViewModels
     {
         private readonly IDataWeatherService _dataWeatherService;
         private readonly IRestService _restService;
-        private readonly ILocalStorageService _localStorageService = null;
+        private readonly ILocalStorageService _localStorageService;
 
         public OpenWeatherViewModel(INavigation navigation)
         {
@@ -25,6 +28,41 @@ namespace OpenWeather.ViewModels
         public override async void Initialize()
         {
             await ReadFromPCLStorage();
+        }
+
+        public async Task DataWeatherFromGeoLocator()
+        {
+            var locator = CrossGeolocator.Current;
+            locator.DesiredAccuracy = 50;
+            var position = await locator.GetPositionAsync();
+
+            WeatherMainModel = await _dataWeatherService.GetWeatherByGeoCoordinate(position.Latitude, position.Longitude);
+        }
+
+        private async Task ReadFromPCLStorage()
+        {
+            var getStorageResult = await _localStorageService.PCLReadStorage<WeatherMainModel>();
+            if (getStorageResult != null)
+            {
+                WeatherMainModel = getStorageResult;
+                await Task.Delay(3000);
+                await DataWeatherFromGeoLocator();
+                OnPropertyChanged();
+                WriteToPCLStorage();
+
+            }
+            else
+            {
+                await DataWeatherFromGeoLocator();
+                OnPropertyChanged();
+                WriteToPCLStorage();
+            }
+        }
+
+        private void WriteToPCLStorage()
+        {
+            _localStorageService.ClearStorage();
+            _localStorageService.PCLWriteStorage(WeatherMainModel);
         }
 
         public INavigation Navigation { get; internal set; }
@@ -51,61 +89,6 @@ namespace OpenWeather.ViewModels
                 OnPropertyChanged();
             }
         }
-    
-        private string _city; 
-        public string City
-        {
-            get { return _city; }
-            set
-            {
-                if (value == _city) return;
-                {
-                    if (value != null)
-                    {
-                        _city = value;
-                        Task.Run(async () =>
-                        {
-                            await InitializeGetWeatherAsync();
-                        });
-                        OnPropertyChanged();
-                    }
-                }
-            }
-        }
-
-        private async Task ReadFromPCLStorage()
-        {
-            var getStorageResult = await _localStorageService.PCLReadStorage<WeatherMainModel>();
-            if (getStorageResult != null)
-            {
-                WeatherMainModel = getStorageResult;
-                await Task.Delay(3000);
-                WeatherMainModel = await _dataWeatherService.GetWeatherByCityName(WeatherMainModel.name);
-                WriteToPCLStorage();
-                OnPropertyChanged();
-            }
-        }
-
-        private async Task InitializeGetWeatherAsync()
-        {
-            try
-            {
-                IsBusy = true;
-                await Task.Delay(1000);
-                WeatherMainModel = await _dataWeatherService.GetWeatherByCityName(_city);
-                WriteToPCLStorage();
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        private void WriteToPCLStorage()
-        {
-                _localStorageService.ClearStorage();
-                _localStorageService.PCLWriteStorage(WeatherMainModel);
-        }
 
         private bool _isBusy;
         public bool IsBusy
@@ -113,8 +96,11 @@ namespace OpenWeather.ViewModels
             get { return _isBusy; }
             set
             {
-                _isBusy = value;
-                OnPropertyChanged();
+                if (_isBusy != value)
+                {
+                    _isBusy = value;
+                    OnPropertyChanged();
+                }
             }
         }
 

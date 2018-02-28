@@ -33,7 +33,7 @@ namespace OpenWeather.Droid.CustomMapRenderer
 
         private void googleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
         {
-            ((ExtMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
+            ((ExtMap)Element).OnTap(new Xamarin.Forms.Maps.Position(e.Point.Latitude, e.Point.Longitude));
         }
     }
 }

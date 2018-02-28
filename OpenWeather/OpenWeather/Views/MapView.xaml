@@ -11,8 +11,8 @@
                 HeightRequest="520" 
                 x:Name="MyMap"
                 IsShowingUser="true"
-                MapType="Street"/> 
-                <Grid HeightRequest="40">
+                MapType="Street"  /> 
+                <Grid HeightRequest="60">
                     <Button Text="Standard" Command="{Binding ClickStandard}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="Silver"
                             FontSize="30" BorderRadius="5" Grid.Row="0" Grid.Column="0"/>
                 

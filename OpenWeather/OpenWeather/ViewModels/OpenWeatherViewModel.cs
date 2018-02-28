@@ -33,12 +33,10 @@ namespace OpenWeather.ViewModels
         public async Task DataWeatherFromGeoLocator()
         {
             var locator = CrossGeolocator.Current;
-            TimeSpan ts = TimeSpan.FromMilliseconds(10000);
             locator.DesiredAccuracy = 50;
             var position = await locator.GetPositionAsync();
-            var pos = new Position(position.Latitude, position.Longitude);
 
-            WeatherMainModel = await _dataWeatherService.GetWeatherByGeoCoordinate(pos.Latitude,pos.Longitude);
+            WeatherMainModel = await _dataWeatherService.GetWeatherByGeoCoordinate(position.Latitude, position.Longitude);
         }
 
         private async Task ReadFromPCLStorage()
@@ -58,7 +56,6 @@ namespace OpenWeather.ViewModels
                 await DataWeatherFromGeoLocator();
                 OnPropertyChanged();
                 WriteToPCLStorage();
-
             }
         }
 
@@ -68,9 +65,7 @@ namespace OpenWeather.ViewModels
             _localStorageService.PCLWriteStorage(WeatherMainModel);
         }
 
-
         public INavigation Navigation { get; internal set; }
-        public static Map Map { get; set; }
 
         private WeatherMainModel _weatherMainModel; 
         public WeatherMainModel WeatherMainModel

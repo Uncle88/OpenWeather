@@ -1,4 +1,5 @@
-﻿using OpenWeather.ViewModels;
+﻿using OpenWeather.Renderer;
+using OpenWeather.ViewModels;
 using Xamarin.Forms;
 
 namespace OpenWeather.Views

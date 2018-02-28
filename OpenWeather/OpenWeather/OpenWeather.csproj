@@ -52,13 +52,13 @@
     <Compile Include="Services\DataWeather\IDataWeatherService.cs" />
     <Compile Include="Services\LocalStorage\ILocalStorageService.cs" />
     <Compile Include="Services\LocalStorage\LocalStorageService.cs" />
-    <Compile Include="Views\MapView.xaml.cs">
-      <DependentUpon>MapView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="Views\BaseView.cs" />
     <Compile Include="Renderer\ExtMap.cs" />
     <Compile Include="Renderer\MapTapEventArgs.cs" />
+    <Compile Include="Views\MapView.xaml.cs">
+      <DependentUpon>MapView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />

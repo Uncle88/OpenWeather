@@ -1,12 +1,13 @@
-﻿using Xamarin.Forms;
+﻿using OpenWeather.Models;
+using Xamarin.Forms;
 
 namespace OpenWeather.Services.PopUpDialog
 {
     public class PopUpDialogService : IPopUpDialogService
     {
-        public void ShowMessage(string Message)
+        public void ShowMessage(WeatherMainModel weatherMainModel)
         {
-            DependencyService.Get<IPopUpDialogService>().ShowMessage(Message);
+            DependencyService.Get<IPopUpDialogService>().ShowMessage(weatherMainModel);
         }
     }
 }

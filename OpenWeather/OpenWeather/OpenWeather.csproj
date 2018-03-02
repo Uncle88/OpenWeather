@@ -59,6 +59,8 @@
     <Compile Include="Views\MapView.xaml.cs">
       <DependentUpon>MapView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\PopUpDialog\IPopUpDialogService.cs" />
+    <Compile Include="Services\PopUpDialog\PopUpDialogService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
@@ -69,6 +71,7 @@
     <Folder Include="Services\DataWeather\" />
     <Folder Include="Services\LocalStorage\" />
     <Folder Include="Renderer\" />
+    <Folder Include="Services\PopUpDialog\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PCLStorage.Abstractions">

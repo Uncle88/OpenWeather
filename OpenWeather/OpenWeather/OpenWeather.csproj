@@ -54,8 +54,8 @@
     <Compile Include="Services\LocalStorage\LocalStorageService.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="Views\BaseView.cs" />
-    <Compile Include="Renderer\ExtMap.cs" />
-    <Compile Include="Renderer\MapTapEventArgs.cs" />
+    <Compile Include="Controls\ExtMap.cs" />
+    <Compile Include="Controls\MapTapEventArgs.cs" />
     <Compile Include="Views\MapView.xaml.cs">
       <DependentUpon>MapView.xaml</DependentUpon>
     </Compile>
@@ -70,7 +70,7 @@
     <Folder Include="Models\" />
     <Folder Include="Services\DataWeather\" />
     <Folder Include="Services\LocalStorage\" />
-    <Folder Include="Renderer\" />
+    <Folder Include="Controls\" />
     <Folder Include="Services\PopUpDialog\" />
   </ItemGroup>
   <ItemGroup>

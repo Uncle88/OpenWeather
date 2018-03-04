@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Windows.Input;
 using Plugin.Geolocator;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
@@ -7,52 +7,59 @@ namespace OpenWeather.ViewModels
 {
     public class MapViewModel : ViewModelBase
     {
-        public MapViewModel(){}
-
-        public static Map Map { get; set; }
-
         public async override void Initialize()
         {
             var locator = CrossGeolocator.Current;
             locator.DesiredAccuracy = 50;
-            var position = await locator.GetPositionAsync();
-            Map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), Distance.FromKilometers(100)));
+            CurrentPos = await locator.GetPositionAsync();
         }
 
-        private Command _clickStandard;
-        public Command ClickStandard
+        private Plugin.Geolocator.Abstractions.Position _currentPos;
+        public Plugin.Geolocator.Abstractions.Position CurrentPos
         {
-            get
+            get { return  _currentPos; }
+            set 
             {
-                return _clickStandard ?? (_clickStandard = new Command((_) =>
-                {
-                    Map.MapType = MapType.Street;
-                }));
+                _currentPos = value;
+                OnPropertyChanged();
             }
         }
 
-        private Command _clickHybrid;
-        public Command ClickHybrid
+        private MapType _selectedMapType;
+        public MapType SelectedMapType
         {
-            get
+            get { return _selectedMapType; }
+            set 
             {
-                return _clickHybrid ?? (_clickHybrid = new Command((_) =>
-                {
-                    Map.MapType = MapType.Hybrid;
-                }));
+                _selectedMapType = value;
+                OnPropertyChanged();
             }
         }
 
-        private Command _clickSatellite;
-        public Command ClickSatellite
+        private ICommand _clickStandard;
+        public ICommand ClickStandard
         {
-            get
+            get => _clickStandard ?? (_clickStandard = GetCommand(MapType.Street));
+        }
+
+        private ICommand _clickHybrid;
+        public ICommand ClickHybrid
+        {
+            get => _clickHybrid ?? (_clickHybrid = GetCommand(MapType.Hybrid));
+        }
+
+        private ICommand _clickSatellite;
+        public ICommand ClickSatellite
+        {
+            get => _clickSatellite ?? (_clickSatellite = GetCommand(MapType.Satellite));
+        }
+
+        private ICommand GetCommand(MapType mapType)
+        {
+            return new Command(() =>
             {
-                return _clickSatellite ?? (_clickSatellite = new Command((_) =>
-                {
-                    Map.MapType = MapType.Satellite;
-                }));
-            }
+                SelectedMapType = mapType;
+            });
         }
     }
 }

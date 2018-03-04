@@ -9,7 +9,6 @@ namespace OpenWeather.Views
         {
             InitializeComponent();
             BindingContext = new MapViewModel();
-            MapViewModel.Map = MyMap;
         }
     }
 }

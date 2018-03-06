@@ -25,6 +25,18 @@ namespace OpenWeather.Controls
             set { SetValue(CurrentPositionProperty, value); }
         }
 
+        public static readonly BindableProperty SelectedPositionProperty =
+            BindableProperty.Create(nameof(SelectedPosition),
+                                    typeof(Position),
+                                    typeof(ExtMap),
+                                    null);
+        public Position SelectedPosition
+        {
+            get { return (Position)GetValue(SelectedPositionProperty); }
+            set { SetValue(SelectedPositionProperty, value); }
+        }
+        
+
         private static void HandleBindingPropertyChangedDelegate(BindableObject bindable, object oldValue, object newValue)
         {
             if (bindable is ExtMap map && oldValue != null)
@@ -37,22 +49,8 @@ namespace OpenWeather.Controls
 
         public event EventHandler<MapTapEventArgs> Tapped;
 
-        private Plugin.Geolocator.Abstractions.Position _currentPos;
-        public Plugin.Geolocator.Abstractions.Position CurrentPos
-        {
-            get { return _currentPos; }
-            set
-            {
-                _currentPos = value;
-                OnPropertyChanged();
-            }
-        }
-
         public async void OnTap(Position coordinate)
         {
-            var locator = CrossGeolocator.Current;
-            locator.DesiredAccuracy = 50;
-            CurrentPos = await locator.GetPositionAsync();
             OnTap(new MapTapEventArgs { Position = coordinate });
         }
 

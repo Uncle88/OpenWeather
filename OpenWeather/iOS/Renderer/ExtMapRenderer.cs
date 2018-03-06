@@ -31,7 +31,7 @@ namespace OpenWeather.iOS.Renderer
 
             ((ExtMap)Element).OnTap(new Position(location.Latitude, location.Longitude));
             var control = Control as MKMapView;
-            var annotation = new BasicMapAnnotation(new CLLocationCoordinate2D(location.Latitude, location.Longitude), "Pin", "myPin");
+            var annotation = new BasicMapAnnotation(new CLLocationCoordinate2D(location.Latitude, location.Longitude), "Pin", "Selected Place");
             control.AddAnnotation(annotation);
         }
 

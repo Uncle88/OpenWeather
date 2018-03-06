@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Android.Content;
+﻿using Android.Content;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using OpenWeather.Controls;
@@ -46,7 +45,7 @@ namespace OpenWeather.Droid.Renderer
             ((ExtMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
             var marker = new MarkerOptions();
             marker.SetPosition(new LatLng(e.Point.Latitude, e.Point.Longitude));
-            marker.SetTitle("MyPin");
+            marker.SetTitle("Selected Place");
             _map.AddMarker(marker);
         }
     }

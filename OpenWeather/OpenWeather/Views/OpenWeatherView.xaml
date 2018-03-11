@@ -6,8 +6,7 @@
     xmlns:weatherVm="clr-namespace:OpenWeather.ViewModels"
     xmlns:views="clr-namespace:OpenWeather.Views;assembly=OpenWeather"
     Title="CurrentWeather">
-    <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
-    <ContentPage.Resources>
+        <ContentPage.Resources>
          <ResourceDictionary>
              <Style x:Key="labelStyle" TargetType="Label">
                  <Setter Property="TextColor" Value="Black" />
@@ -18,7 +17,7 @@
              <Style x:Key="labelStyle2" TargetType="Label">
                  <Setter Property="TextColor" Value="Black" />
                  <Setter Property="Grid.Column" Value="3" />
-                 <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                 <Setter Property="HorizontalOptions" Value="StartAndExpand" />
                 <Setter Property="FontSize" Value="20"/>
              </Style>
          </ResourceDictionary>
@@ -39,26 +38,23 @@
              <ColumnDefinition Width="1" />
              <ColumnDefinition Width="50" />
              <ColumnDefinition Width="100" />
-             <ColumnDefinition Width="130" />
-             <ColumnDefinition Width="30" />
+             <ColumnDefinition Width="160" />
         </Grid.ColumnDefinitions>
+        <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Color="Blue" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/> 
             <Button Text="Map ->" Command="{Binding ClickCommandMove}" HorizontalOptions="EndAndExpand" FontSize="25" FontAttributes="Bold" Grid.Row="0" Grid.ColumnSpan="6" WidthRequest="125" HeightRequest="65"/>
         
             <Label Text="{Binding WeatherMainModel.name}" FontSize="30" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Grid.Row="1" Grid.ColumnSpan="6"/>
-            <Label Text="{Binding WeatherMainModel.main.temp}" FontAttributes="Bold" Font="30" Grid.Row="2" Grid.Column="2"  HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
-            <Label Text="°C" Grid.Row="2" Grid.Column="2" FontAttributes="Bold" Font="30" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand"/>
+            <Label Text="{Binding WeatherMainModel.main.temp, StringFormat='{0:F0} °C'}" FontAttributes="Bold" Font="30" Grid.Row="2" Grid.Column="2"  HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand"/>
             <Image Source="{Binding IconImageString}" WidthRequest="70" HeightRequest="70" HorizontalOptions="StartAndExpand" Grid.Row="2" Grid.Column="3"/>
             
             <Label Text="Country:" Grid.Row="4" Style="{StaticResource labelStyle}"/>
             <Label Text="{Binding WeatherMainModel.sys.country}" Grid.Row="4" Style="{StaticResource labelStyle2}"/>
 
             <Label Text="Humidity:" Grid.Row="5" Style="{StaticResource labelStyle}" />
-            <Label Text="{Binding WeatherMainModel.main.humidity}" Grid.Row="5" Style="{StaticResource labelStyle2}"/>
-            <Label Text="%" Grid.Row="5" Grid.Column="4" HorizontalOptions="Start" FontSize="15"/>
+            <Label Text="{Binding WeatherMainModel.main.humidity, StringFormat='{0:N0} %' }" Grid.Row="5" Style="{StaticResource labelStyle2}"/>
 
             <Label Text="Wind Speed:" Grid.Row="6" Style="{StaticResource labelStyle}"/>
-            <Label Text="{Binding WeatherMainModel.wind.speed}" Grid.Row="6" Style="{StaticResource labelStyle2}"/>
-            <Label Text="m/s" Grid.Row="6" Grid.Column="4" HorizontalOptions="Start" FontSize="15"/>
+            <Label Text="{Binding WeatherMainModel.wind.speed, StringFormat='{0:N0} m/s'}" Grid.Row="6" Style="{StaticResource labelStyle2}"/>
 
             <Label Text="WeatherMain:" Grid.Row="7" Style="{StaticResource labelStyle}"/>
             <Label Text="{Binding WeatherMainModel.weather[0].main}" Grid.Row="7" Style="{StaticResource labelStyle2}"/>

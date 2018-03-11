@@ -1,6 +1,4 @@
-﻿using System;
-using Plugin.Geolocator;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 
 namespace OpenWeather.Controls
@@ -29,13 +27,12 @@ namespace OpenWeather.Controls
             BindableProperty.Create(nameof(SelectedPosition),
                                     typeof(Position),
                                     typeof(ExtMap),
-                                    null);
+                                     new Position(0,0));
         public Position SelectedPosition
         {
             get { return (Position)GetValue(SelectedPositionProperty); }
             set { SetValue(SelectedPositionProperty, value); }
         }
-        
 
         private static void HandleBindingPropertyChangedDelegate(BindableObject bindable, object oldValue, object newValue)
         {
@@ -47,19 +44,9 @@ namespace OpenWeather.Controls
             }
         }
 
-        public event EventHandler<MapTapEventArgs> Tapped;
-
-        public async void OnTap(Position coordinate)
+        public void OnTap(Position coordinate)
         {
-            OnTap(new MapTapEventArgs { Position = coordinate });
-        }
-
-        protected virtual void OnTap(MapTapEventArgs e)
-        {
-            var handler = Tapped;
-
-            if (handler != null)
-                handler(this, e);
+            SelectedPosition = coordinate;
         }
     }
 }

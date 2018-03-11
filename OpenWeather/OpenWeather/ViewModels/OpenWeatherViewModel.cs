@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using OpenWeather.Models;
 using OpenWeather.Services.DataWeather;
@@ -16,6 +16,7 @@ namespace OpenWeather.ViewModels
         private readonly IDataWeatherService _dataWeatherService;
         private readonly IRestService _restService;
         private readonly ILocalStorageService _localStorageService;
+        private readonly CancellationTokenSource _cts = new CancellationTokenSource();
 
         public OpenWeatherViewModel(INavigation navigation)
         {
@@ -23,11 +24,29 @@ namespace OpenWeather.ViewModels
             _dataWeatherService = new DataWeatherService();
             _restService = new RestService();
             _localStorageService = new LocalStorageService();
+
+            MapViewModel.ParametersSet += HandlerParameterSet;
         }
 
         public override async void Initialize()
         {
-            await ReadFromPCLStorage();
+            var token = _cts.Token;
+            await ReadFromPCLStorage(token);
+        }
+
+        public Position _selectPosition { get; set; }
+
+        private async Task HandlerParameterSet(Position pos)
+        {
+            _cts.Cancel();
+            _selectPosition = pos;
+            await DataWeatherFromSelectedPlace();
+            OnPropertyChanged();
+        }
+
+        public async Task DataWeatherFromSelectedPlace()
+        {
+            WeatherMainModel = await _dataWeatherService.GetWeatherByGeoCoordinate(_selectPosition.Latitude, _selectPosition.Longitude);
         }
 
         public async Task DataWeatherFromGeoLocator()
@@ -39,15 +58,26 @@ namespace OpenWeather.ViewModels
             WeatherMainModel = await _dataWeatherService.GetWeatherByGeoCoordinate(position.Latitude, position.Longitude);
         }
 
-        private async Task ReadFromPCLStorage()
+        private async Task ReadFromPCLStorage(CancellationToken token)
         {
+            IsBusy = true;
+
             var getStorageResult = await _localStorageService.PCLReadStorage<WeatherMainModel>();
+
+            if (token.IsCancellationRequested)
+                return;
+
             if (getStorageResult != null)
             {
                 WeatherMainModel = getStorageResult;
                 await Task.Delay(3000);
+
+                if (token.IsCancellationRequested)
+                    return;
+
                 await DataWeatherFromGeoLocator();
                 OnPropertyChanged();
+                IsBusy = false;
                 WriteToPCLStorage();
 
             }
@@ -55,6 +85,7 @@ namespace OpenWeather.ViewModels
             {
                 await DataWeatherFromGeoLocator();
                 OnPropertyChanged();
+                IsBusy = false;
                 WriteToPCLStorage();
             }
         }
@@ -75,6 +106,7 @@ namespace OpenWeather.ViewModels
             {
                 _weatherMainModel = value;
                 IconImageString = "http://openweathermap.org/img/w/" + _weatherMainModel.weather[0].icon + ".png";
+
                 OnPropertyChanged();
             }
         }
@@ -96,11 +128,8 @@ namespace OpenWeather.ViewModels
             get { return _isBusy; }
             set
             {
-                if (_isBusy != value)
-                {
                     _isBusy = value;
                     OnPropertyChanged();
-                }
             }
         }
 

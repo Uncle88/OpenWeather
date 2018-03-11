@@ -58,7 +58,6 @@
     <Compile Include="Views\MapView.xaml.cs">
       <DependentUpon>MapView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\MapTapEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />

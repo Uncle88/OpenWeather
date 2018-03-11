@@ -8,19 +8,22 @@
             <StackLayout VerticalOptions="StartAndExpand">
                 <controls:ExtMap
                 WidthRequest="400" 
-                HeightRequest="520" 
+                HeightRequest="510" 
                 x:Name="MyMap"
                 IsShowingUser="true"
-                MapType="{Binding SelectedMapType}" CurrentPosition="{Binding CurrentPos}" /> 
-                <Grid HeightRequest="60">
-                    <Button Text="Standard" Command="{Binding ClickStandard}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="Silver"
+                MapType="{Binding SelectedMapType}" CurrentPosition="{Binding CurrentPos}" SelectedPosition="{Binding SelectedPosition, Mode=OneWayToSource}" /> 
+                <Grid HeightRequest="50">
+                <Button Text="Pin Place Weather" Command="{Binding ClickPinWeather}" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand" BackgroundColor="Silver"
+                            FontSize="20" BorderRadius="5" Grid.Row="0" Grid.Column="0" TextColor="Blue" WidthRequest="350"/>
+                
+                  <!--  <Button Text="Standard" Command="{Binding ClickStandard}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="Silver"
                             FontSize="30" BorderRadius="5" Grid.Row="0" Grid.Column="0"/>
                 
                     <Button Text="Hybrid" Command="{Binding ClickHybrid}"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="Red"
                             FontSize="30" BorderRadius="5" Grid.Row="0" Grid.Column="1"/>
 
                     <Button Text="Satellite" Command="{Binding ClickSatellite}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="Green" 
-                            FontSize="30" BorderRadius="5" Grid.Row="0" Grid.Column="2"/>
+                            FontSize="30" BorderRadius="5" Grid.Row="0" Grid.Column="2"/> -->
                 </Grid>
             </StackLayout>
         </ContentPage.Content>

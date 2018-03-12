@@ -1,6 +1,5 @@
-﻿using OpenWeather.Renderer;
-using OpenWeather.ViewModels;
-using Xamarin.Forms;
+﻿using OpenWeather.ViewModels;
+
 
 namespace OpenWeather.Views
 {
@@ -9,8 +8,7 @@ namespace OpenWeather.Views
         public MapView()
         {
             InitializeComponent();
-            BindingContext = new MapViewModel();
-            MapViewModel.Map = MyMap;
+            BindingContext = new MapViewModel(Navigation);
         }
     }
 }

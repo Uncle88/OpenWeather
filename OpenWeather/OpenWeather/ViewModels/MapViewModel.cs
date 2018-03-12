@@ -1,58 +1,82 @@
-﻿using System;
+﻿using System.Threading.Tasks;
+using System.Windows.Input;
 using Plugin.Geolocator;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 
 namespace OpenWeather.ViewModels
 {
+    public delegate Task SetParamsDelegate(Position pos);
+
     public class MapViewModel : ViewModelBase
     {
+        public static event SetParamsDelegate ParametersSet;
+
         public MapViewModel(){}
 
-        public static Map Map { get; set; }
+        public MapViewModel(INavigation navigation)
+        {
+            Navigation = navigation;
+        }
 
         public async override void Initialize()
         {
             var locator = CrossGeolocator.Current;
             locator.DesiredAccuracy = 50;
-            var position = await locator.GetPositionAsync();
-            Map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), Distance.FromKilometers(100)));
+            CurrentPos = await locator.GetPositionAsync();
         }
 
-        private Command _clickStandard;
-        public Command ClickStandard
+        private Plugin.Geolocator.Abstractions.Position _currentPos;
+        public Plugin.Geolocator.Abstractions.Position CurrentPos
+        {
+            get { return  _currentPos; }
+            set 
+            {
+                _currentPos = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private Position _selectedPosition;
+        public Position SelectedPosition
+        {
+            get { return _selectedPosition;}
+            set
+            {
+                _selectedPosition = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private MapType _selectedMapType;
+        public MapType SelectedMapType
+        {
+            get { return _selectedMapType; }
+            set 
+            {
+                _selectedMapType = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public INavigation Navigation { get; }
+
+        private ICommand _clickPinWeather;
+        public ICommand ClickPinWeather
         {
             get
             {
-                return _clickStandard ?? (_clickStandard = new Command((_) =>
+                return _clickPinWeather ?? (_clickPinWeather = new Command( async (object obj) => 
                 {
-                    Map.MapType = MapType.Street;
+                    await Navigation.PopAsync();
+                    CallEvent();
                 }));
             }
         }
 
-        private Command _clickHybrid;
-        public Command ClickHybrid
+        private void CallEvent()
         {
-            get
-            {
-                return _clickHybrid ?? (_clickHybrid = new Command((_) =>
-                {
-                    Map.MapType = MapType.Hybrid;
-                }));
-            }
-        }
-
-        private Command _clickSatellite;
-        public Command ClickSatellite
-        {
-            get
-            {
-                return _clickSatellite ?? (_clickSatellite = new Command((_) =>
-                {
-                    Map.MapType = MapType.Satellite;
-                }));
-            }
+            MapViewModel.ParametersSet(SelectedPosition);
         }
     }
 }

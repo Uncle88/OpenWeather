@@ -40,7 +40,7 @@
              <ColumnDefinition Width="100" />
              <ColumnDefinition Width="160" />
         </Grid.ColumnDefinitions>
-        <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Color="Blue" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/> 
+        <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Color="Blue" /> 
             <Button Text="Map ->" Command="{Binding ClickCommandMove}" HorizontalOptions="EndAndExpand" FontSize="25" FontAttributes="Bold" Grid.Row="0" Grid.ColumnSpan="6" WidthRequest="125" HeightRequest="65"/>
         
             <Label Text="{Binding WeatherMainModel.name}" FontSize="30" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Grid.Row="1" Grid.ColumnSpan="6"/>

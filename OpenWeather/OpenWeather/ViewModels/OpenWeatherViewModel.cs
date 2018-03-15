@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using OpenWeather.Models;
 using OpenWeather.Services.DataWeather;
@@ -65,19 +66,22 @@ namespace OpenWeather.ViewModels
             var getStorageResult = await _localStorageService.PCLReadStorage<WeatherMainModel>();
 
             if (token.IsCancellationRequested)
+            {
+                IsBusy = false;
                 return;
+            }
 
             if (getStorageResult != null)
             {
                 WeatherMainModel = getStorageResult;
                 await Task.Delay(3000);
+                IsBusy = false;
 
                 if (token.IsCancellationRequested)
                     return;
 
                 await DataWeatherFromGeoLocator();
                 OnPropertyChanged();
-                IsBusy = false;
                 WriteToPCLStorage();
 
             }
@@ -96,6 +100,61 @@ namespace OpenWeather.ViewModels
             _localStorageService.PCLWriteStorage(WeatherMainModel);
         }
 
+        private Color _colorBackground;
+        public Color ColorBackground
+        {
+            get { return _colorBackground; }
+            set
+            {
+                _colorBackground = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private void ChangeBackgroundColor()
+        {
+            if (WeatherMainModel.weather[0].description == "clear sky")
+            {
+                ColorBackground = Color.DeepSkyBlue;
+            }
+            else if (WeatherMainModel.weather[0].description == "few clouds")
+            {
+                ColorBackground = Color.Coral;
+            }
+            else if (WeatherMainModel.weather[0].description == "scattered clouds")
+            {
+                ColorBackground = Color.BurlyWood;
+            }
+            else if (WeatherMainModel.weather[0].description == "broken clouds")
+            {
+                ColorBackground = Color.Brown;
+            }
+            else if (WeatherMainModel.weather[0].description == "shower rain")
+            {
+                ColorBackground = Color.Azure;
+            }
+            else if (WeatherMainModel.weather[0].description == "rain")
+            {
+                ColorBackground =Color.Aqua;
+            }
+            else if (WeatherMainModel.weather[0].description == "thunderstorm")
+            {
+                ColorBackground = Color.BlueViolet;
+            }
+            else if (WeatherMainModel.weather[0].description == "show")
+            {
+                ColorBackground =Color.Blue;
+            }
+            else if (WeatherMainModel.weather[0].description == "mist")
+            {
+                ColorBackground = Color.Silver;
+            }
+            else
+            {
+                ColorBackground = Color.White;
+            }
+        }
+
         public INavigation Navigation { get; internal set; }
 
         private WeatherMainModel _weatherMainModel; 
@@ -105,6 +164,7 @@ namespace OpenWeather.ViewModels
             set
             {
                 _weatherMainModel = value;
+                ChangeBackgroundColor();
                 IconImageString = "http://openweathermap.org/img/w/" + _weatherMainModel.weather[0].icon + ".png";
 
                 OnPropertyChanged();

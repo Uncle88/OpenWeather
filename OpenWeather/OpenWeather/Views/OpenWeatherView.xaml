@@ -22,7 +22,7 @@
              </Style>
          </ResourceDictionary>
      </ContentPage.Resources>
-        <Grid BackgroundColor="White" Padding="10,10,5,5">
+        <Grid BackgroundColor="{Binding ColorBackground}" Padding="10,10,5,5">
         <Grid.RowDefinitions>
              <RowDefinition Height="65" />
              <RowDefinition Height="80" />

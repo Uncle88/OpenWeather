@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using OpenWeather.Models;
 using OpenWeather.Services.DataWeather;
@@ -101,7 +100,7 @@ namespace OpenWeather.ViewModels
         }
 
         private Color _colorBackground;
-        public Color ColorBackground
+       public Color ColorBackground
         {
             get { return _colorBackground; }
             set
@@ -113,45 +112,145 @@ namespace OpenWeather.ViewModels
 
         private void ChangeBackgroundColor()
         {
-            if (WeatherMainModel.weather[0].description == "clear sky")
+            if (232 >= WeatherMainModel.weather[0].id && WeatherMainModel.weather[0].id >= 200)
+            {
+                ColorBackground = Color.Blue;
+            }
+            else if (321 >= WeatherMainModel.weather[0].id && WeatherMainModel.weather[0].id >= 300)
             {
                 ColorBackground = Color.DeepSkyBlue;
             }
-            else if (WeatherMainModel.weather[0].description == "few clouds")
+            else if (531 >= WeatherMainModel.weather[0].id && WeatherMainModel.weather[0].id >= 500)
             {
-                ColorBackground = Color.Coral;
+                ColorBackground = Color.Aquamarine;
             }
-            else if (WeatherMainModel.weather[0].description == "scattered clouds")
-            {
-                ColorBackground = Color.BurlyWood;
-            }
-            else if (WeatherMainModel.weather[0].description == "broken clouds")
-            {
-                ColorBackground = Color.Brown;
-            }
-            else if (WeatherMainModel.weather[0].description == "shower rain")
+            else if (622 >= WeatherMainModel.weather[0].id && WeatherMainModel.weather[0].id >= 600)
             {
                 ColorBackground = Color.Azure;
             }
-            else if (WeatherMainModel.weather[0].description == "rain")
+            else if (781 >= WeatherMainModel.weather[0].id && WeatherMainModel.weather[0].id >= 701)
             {
-                ColorBackground =Color.Aqua;
+                ColorBackground = Color.LightGray;
             }
-            else if (WeatherMainModel.weather[0].description == "thunderstorm")
+            else if ( WeatherMainModel.weather[0].id == 800)
             {
-                ColorBackground = Color.BlueViolet;
+                ColorBackground = Color.LightYellow;
             }
-            else if (WeatherMainModel.weather[0].description == "show")
+            else if (804 >= WeatherMainModel.weather[0].id && WeatherMainModel.weather[0].id >= 801)
             {
-                ColorBackground =Color.Blue;
+                ColorBackground = Color.LightSlateGray;
             }
-            else if (WeatherMainModel.weather[0].description == "mist")
+            else if (906 >= WeatherMainModel.weather[0].id && WeatherMainModel.weather[0].id >= 900)
             {
-                ColorBackground = Color.Silver;
+                ColorBackground = Color.CornflowerBlue;
+            }
+            else if (962 >= WeatherMainModel.weather[0].id && WeatherMainModel.weather[0].id >= 951)
+            {
+                ColorBackground = Color.GreenYellow;
             }
             else
             {
-                ColorBackground = Color.White;
+                ColorBackground = Color.Red;
+            }
+        }
+
+        public void ParseResponce()
+        {
+            Temperature = WeatherMainModel.main.temp;
+            CityName = WeatherMainModel.name;
+            Country = WeatherMainModel.sys.country;
+            Humidity = WeatherMainModel.main.humidity;
+            WindSpeed = WeatherMainModel.wind.speed;
+            Pressure = WeatherMainModel.main.pressure;
+            MainStatus = WeatherMainModel.weather[0].main;
+            MainStatusDescription = WeatherMainModel.weather[0].description;
+        }
+
+        private double _temperature;
+        public double Temperature
+        {
+            get { return _temperature; }
+            set
+            {
+                _temperature = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _cityName;
+        public string CityName
+        {
+            get { return _cityName; }
+            set
+            {
+                _cityName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _country;
+        public string Country
+        {
+            get { return _country; }
+            set
+            {
+                _country = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private double _humidity;
+        public double Humidity
+        {
+            get { return _humidity; }
+            set
+            {
+                _humidity = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private double _windSpeed;
+        public double WindSpeed
+        {
+            get { return _windSpeed; }
+            set
+            {
+                _windSpeed = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private double _pressure;
+        public double Pressure
+        {
+            get { return _pressure; }
+            set
+            {
+                _pressure = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _mainStatus;
+        public string MainStatus
+        {
+            get { return _mainStatus; }
+            set
+            {
+                _mainStatus = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _mainStatusDescription;
+        public string MainStatusDescription
+        {
+            get { return _mainStatusDescription; }
+            set
+            {
+                _mainStatusDescription = value;
+                OnPropertyChanged();
             }
         }
 
@@ -164,6 +263,7 @@ namespace OpenWeather.ViewModels
             set
             {
                 _weatherMainModel = value;
+                ParseResponce();
                 ChangeBackgroundColor();
                 IconImageString = "http://openweathermap.org/img/w/" + _weatherMainModel.weather[0].icon + ".png";
 

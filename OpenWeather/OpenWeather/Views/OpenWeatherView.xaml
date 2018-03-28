@@ -5,8 +5,8 @@
     x:Class="OpenWeather.OpenWeatherView"
     xmlns:weatherVm="clr-namespace:OpenWeather.ViewModels"
     xmlns:views="clr-namespace:OpenWeather.Views;assembly=OpenWeather"
-    Title="CurrentWeather">
-        <ContentPage.Resources>
+    Title="WEATHER">
+    <ContentPage.Resources>
          <ResourceDictionary>
              <Style x:Key="labelStyle" TargetType="Label">
                  <Setter Property="TextColor" Value="Black" />
@@ -21,8 +21,10 @@
                 <Setter Property="FontSize" Value="20"/>
              </Style>
          </ResourceDictionary>
-     </ContentPage.Resources>
-        <Grid BackgroundColor="{Binding ColorBackground}" Padding="10,10,5,5" >
+    </ContentPage.Resources>
+    <Grid BackgroundColor="{Binding ColorBackground}" Padding="10,10,5,5" >
+        <ActivityIndicator MinimumHeightRequest="20" MinimumWidthRequest="20" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Red"/>
+
         <Grid.RowDefinitions>
              <RowDefinition Height="65" />
              <RowDefinition Height="60" />
@@ -41,9 +43,7 @@
              <ColumnDefinition Width="100" />
              <ColumnDefinition Width="160" />
         </Grid.ColumnDefinitions>
-        
-        <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Color="Blue" />
-            
+
             <Button Text="Map ->" Command="{Binding ClickCommandMove}" HorizontalOptions="EndAndExpand" FontSize="25" FontAttributes="Bold" Grid.Row="0" Grid.ColumnSpan="6" WidthRequest="125" HeightRequest="65"/>
             
             <Label Text="{Binding CityName}" FontSize="30" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Grid.Row="1" Grid.ColumnSpan="6"/>
@@ -67,5 +67,5 @@
 
             <Label Text="WeatherStatus:" Grid.Row="9" Style="{StaticResource labelStyle}"/>
             <Label Text="{Binding  MainStatusDescription}" Grid.Row="9" Style="{StaticResource labelStyle2}"/>
-        </Grid>
+    </Grid>
 </views:BaseView>

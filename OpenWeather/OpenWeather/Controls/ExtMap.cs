@@ -39,7 +39,7 @@ namespace OpenWeather.Controls
             if (bindable is ExtMap map && oldValue != null)
             {
                 var temp = (Plugin.Geolocator.Abstractions.Position)oldValue;
-                var position = MapSpan.FromCenterAndRadius(new Position(temp.Latitude, temp.Longitude), Distance.FromKilometers(5));
+                var position = MapSpan.FromCenterAndRadius(new Position(temp.Latitude, temp.Longitude), Distance.FromKilometers(100));
                 map.MoveToRegion(position);
             }
         }

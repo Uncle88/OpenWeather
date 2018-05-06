@@ -1,4 +1,5 @@
 ﻿using CoreLocation;
+using Foundation;
 using MapKit;
 using OpenWeather.Controls;
 using OpenWeather.iOS.Renderer;
@@ -22,17 +23,28 @@ namespace OpenWeather.iOS.Renderer
                 NumberOfTouchesRequired = 1
             };
         }
+        IMKAnnotation annotation;
 
         private void OnTap(UITapGestureRecognizer recognizer)
         {
+            
             var cgPoint = recognizer.LocationInView(Control);
 
             var location = ((MKMapView)Control).ConvertPoint(cgPoint, Control);
 
             ((ExtMap)Element).OnTap(new Position(location.Latitude, location.Longitude));
             var control = Control as MKMapView;
-            var annotation = new BasicMapAnnotation(new CLLocationCoordinate2D(location.Latitude, location.Longitude), "Pin", "Selected Place");
-            control.AddAnnotation(annotation);
+            if (annotation != null)
+            {
+                control.RemoveAnnotation(annotation);
+                annotation = new BasicMapAnnotation(new CLLocationCoordinate2D(location.Latitude, location.Longitude), "Pin", "Selected Place");
+                control.AddAnnotation(annotation);
+            }
+            else
+            {
+                annotation = new BasicMapAnnotation(new CLLocationCoordinate2D(location.Latitude, location.Longitude), "Pin", "Selected Place");
+                control.AddAnnotation(annotation);
+            }
         }
 
         protected override void OnElementChanged(Xamarin.Forms.Platform.iOS.ElementChangedEventArgs<View> e)
@@ -52,7 +64,7 @@ namespace OpenWeather.iOS.Renderer
         CLLocationCoordinate2D coord;
         string title, subtitle;
 
-        public override CLLocationCoordinate2D Coordinate { get { return coord; } }
+        public override CLLocationCoordinate2D Coordinate { get { return coord; }}
         public override void SetCoordinate(CLLocationCoordinate2D value)
         {
             coord = value;

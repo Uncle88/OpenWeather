@@ -6,66 +6,56 @@
     xmlns:weatherVm="clr-namespace:OpenWeather.ViewModels"
     xmlns:views="clr-namespace:OpenWeather.Views;assembly=OpenWeather"
     Title="WEATHER">
-    <ContentPage.Resources>
-         <ResourceDictionary>
-             <Style x:Key="labelStyle" TargetType="Label">
-                 <Setter Property="TextColor" Value="Black" />
-                 <Setter Property="Grid.ColumnSpan" Value="3" />
-                 <Setter Property="FontAttributes" Value="Bold" />
-                 <Setter Property="FontSize" Value="20"/>
-             </Style>
-             <Style x:Key="labelStyle2" TargetType="Label">
-                 <Setter Property="TextColor" Value="Black" />
-                 <Setter Property="Grid.Column" Value="3" />
-                 <Setter Property="HorizontalOptions" Value="StartAndExpand" />
-                <Setter Property="FontSize" Value="20"/>
-             </Style>
-         </ResourceDictionary>
-    </ContentPage.Resources>
-    <Grid BackgroundColor="{Binding ColorBackground}" Padding="10,10,5,5" >
-        <ActivityIndicator MinimumHeightRequest="20" MinimumWidthRequest="20" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Red"/>
+    <AbsoluteLayout BackgroundColor="{Binding ColorBackground}" Padding="10,10,5,5">  
+        <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="70" />
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="65" />
+                    <ColumnDefinition Width="45" />
+                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                
+                <ActivityIndicator MinimumHeightRequest="20" MinimumWidthRequest="20" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Blue" Grid.ColumnSpan="6" HorizontalOptions="Center" Margin="10,0,0,0"/>
 
-        <Grid.RowDefinitions>
-             <RowDefinition Height="65" />
-             <RowDefinition Height="60" />
-             <RowDefinition Height="70" />
-             <RowDefinition Height="35" />
-             <RowDefinition Height="35" />
-             <RowDefinition Height="35" />
-             <RowDefinition Height="35" />
-             <RowDefinition Height="35" />
-             <RowDefinition Height="35" />
-             <RowDefinition Height="25" />
-         </Grid.RowDefinitions>
-         <Grid.ColumnDefinitions>
-             <ColumnDefinition Width="1" />
-             <ColumnDefinition Width="50" />
-             <ColumnDefinition Width="100" />
-             <ColumnDefinition Width="160" />
-        </Grid.ColumnDefinitions>
+                <Button Text="Map>" Command="{Binding ClickCommandMove}" HorizontalOptions="End" FontSize="25" FontAttributes="Bold" Grid.Row="0" Grid.ColumnSpan="12"/>
 
-            <Button Text="Map ->" Command="{Binding ClickCommandMove}" HorizontalOptions="EndAndExpand" FontSize="25" FontAttributes="Bold" Grid.Row="0" Grid.ColumnSpan="6" WidthRequest="125" HeightRequest="65"/>
+            <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="0" Grid.ColumnSpan="6" Margin="25,0,0,0">
+                <Label Text="{Binding CityName, StringFormat='{0:N0},'}" FontSize="30"  HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" FontAttributes="Bold"/>
+                <Label Text="{Binding Country}" FontSize="30" FontAttributes="Bold" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand"/>
+            </StackLayout>
             
-            <Label Text="{Binding CityName}" FontSize="30" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Grid.Row="1" Grid.ColumnSpan="6"/>
-            <Label Text="{Binding Temperature, StringFormat='{0:F0} °C'}" FontAttributes="Bold" Font="30" Grid.Row="2" Grid.Column="2"  HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand"/>
-            <Image Source="{Binding IconImageString}" WidthRequest="70" HeightRequest="70" HorizontalOptions="StartAndExpand" Grid.Row="2" Grid.Column="3"/>
+            <StackLayout Grid.Row="2" Orientation="Horizontal" Spacing="0" Grid.ColumnSpan="6" Margin="35,0,0,0">
+                <Label Text="{Binding Temperature , StringFormat='{0:F0} °C'}" FontAttributes="Bold" Font="30" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand"/>
+                <Image Source="{Binding IconImageString}" WidthRequest="70" HeightRequest="70"                  HorizontalOptions="StartAndExpand" />
+            </StackLayout>
+
+            <Label Text="{Binding CurrentTime}" Grid.Row="3" Grid.ColumnSpan="6" HorizontalOptions="CenterAndExpand" Margin="25,0,0,0"/>
             
-            <Label Text="Country:" Grid.Row="4" Style="{StaticResource labelStyle}"/>
-            <Label Text="{Binding Country}" Grid.Row="4" Style="{StaticResource labelStyle2}"/>
+                <Label Text="Humidity:" Grid.Row="4" Grid.ColumnSpan="2" Margin="30,0,0,0"/>
+                <Label Text="{Binding Humidity, StringFormat='{0:N0} %' }" Grid.Row="4" Grid.Column="3"/> 
+            
+                <Label Text="Wind Speed:" Grid.Row="5" Grid.ColumnSpan="2" Margin="30,0,0,0"/>
+                <Label Text="{Binding WindSpeed, StringFormat='{0:N0} m/s'}" Grid.Row="5" Grid.Column="3"/>
 
-            <Label Text="Humidity:" Grid.Row="5" Style="{StaticResource labelStyle}" />
-            <Label Text="{Binding Humidity, StringFormat='{0:N0} %' }" Grid.Row="5" Style="{StaticResource labelStyle2}"/>
+                <Label Text="Pressure:" Grid.Row="6" Grid.ColumnSpan="2" Margin="30,0,0,0"/> 
+                <Label Text="{Binding Pressure, StringFormat='{0:N0} Pa'}" Grid.Row="6" Grid.Column="3"/>
 
-            <Label Text="Wind Speed:" Grid.Row="6" Style="{StaticResource labelStyle}"/>
-            <Label Text="{Binding WindSpeed, StringFormat='{0:N0} m/s'}" Grid.Row="6" Style="{StaticResource labelStyle2}"/>
+                <Label Text="Sky:" Grid.Row="7" Grid.ColumnSpan="2" Margin="30,0,0,0"/> 
+                <Label Text="{Binding  MainStatus}" Grid.Row="7" Grid.Column="3"/>
 
-            <Label Text="Pressure:" Grid.Row="7" Style="{StaticResource labelStyle}"/>
-            <Label Text="{Binding Pressure, StringFormat='{0:N0} Pa'}" Grid.Row="7" Style="{StaticResource labelStyle2}"/>
-
-            <Label Text="WeatherMain:" Grid.Row="8" Style="{StaticResource labelStyle}"/>
-            <Label Text="{Binding  MainStatus}" Grid.Row="8" Style="{StaticResource labelStyle2}"/>
-
-            <Label Text="WeatherStatus:" Grid.Row="9" Style="{StaticResource labelStyle}"/>
-            <Label Text="{Binding  MainStatusDescription}" Grid.Row="9" Style="{StaticResource labelStyle2}"/>
-    </Grid>
+                <Label Text="Sky status:" Grid.Row="8" Grid.ColumnSpan="3" Margin="30,0,0,0"/> 
+                <Label Text="{Binding  MainStatusDescription}" Grid.Row="8" Grid.Column="3"/> 
+        </Grid>
+    </AbsoluteLayout>
 </views:BaseView>

@@ -22,7 +22,7 @@ namespace OpenWeather.ViewModels
         public async override void Initialize()
         {
             var locator = CrossGeolocator.Current;
-            locator.DesiredAccuracy = 50;
+            locator.DesiredAccuracy = 10;
             CurrentPos = await locator.GetPositionAsync();
         }
 
@@ -43,18 +43,12 @@ namespace OpenWeather.ViewModels
             get { return _selectedPosition;}
             set
             {
+                if (_selectedPosition != null)
+                {
+                    _selectedPosition = new Position(0,0);
+                    _selectedPosition = value;
+                }
                 _selectedPosition = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private MapType _selectedMapType;
-        public MapType SelectedMapType
-        {
-            get { return _selectedMapType; }
-            set 
-            {
-                _selectedMapType = value;
                 OnPropertyChanged();
             }
         }

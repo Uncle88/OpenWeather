@@ -44,6 +44,7 @@ namespace OpenWeather.Droid.Renderer
         {
             ((ExtMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
             var marker = new MarkerOptions();
+            _map.Clear();
             marker.SetPosition(new LatLng(e.Point.Latitude, e.Point.Longitude));
             marker.SetTitle("Selected Place");
             _map.AddMarker(marker);

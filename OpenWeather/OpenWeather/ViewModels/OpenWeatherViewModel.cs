@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using OpenWeather.Models;
 using OpenWeather.Services.DataWeather;
@@ -100,7 +101,7 @@ namespace OpenWeather.ViewModels
         }
 
         private Color _colorBackground;
-       public Color ColorBackground
+        public Color ColorBackground
         {
             get { return _colorBackground; }
             set
@@ -164,6 +165,20 @@ namespace OpenWeather.ViewModels
             Pressure = WeatherMainModel.main.pressure;
             MainStatus = WeatherMainModel.weather[0].main;
             MainStatusDescription = WeatherMainModel.weather[0].description;
+            SunRise = (WeatherMainModel.sys.sunrise).ToString();
+            SunSet = (WeatherMainModel.sys.sunset).ToString();
+            CurrentTime = DateTime.Now.ToString();
+        }
+
+        private string _currentTime;
+        public string CurrentTime
+        {
+            get { return _currentTime; }
+            set
+            {
+                _currentTime = value;
+                OnPropertyChanged();
+            }
         }
 
         private double _temperature;
@@ -250,6 +265,28 @@ namespace OpenWeather.ViewModels
             set
             {
                 _mainStatusDescription = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _sunRise;
+        public string SunRise
+        {
+            get { return _sunRise; }
+            set
+            {
+                _sunRise = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _sunSet;
+        public string SunSet
+        {
+            get { return _sunSet; }
+            set
+            {
+                _sunSet = value;
                 OnPropertyChanged();
             }
         }

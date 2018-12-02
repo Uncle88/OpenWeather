@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="OpenWeather.Views.MenuView"
+             Title="MENU">
+    
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness" iOS="0, 20, 0, 0" />
+    </ContentPage.Padding>
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="Gray">
+            <Button Text="OpenWeather" TextColor="White" BackgroundColor="Green" Command="{Binding GoWeatherCommand}" />
+            <Button Text="Map" TextColor="White" BackgroundColor="Navy" Command="{Binding GoMapCommand}" />
+            <Button Text="Favorite Places" TextColor="White" BackgroundColor="Navy" Command="{Binding GoFavoriteCommand}" />
+        </StackLayout>
+    </ContentPage.Content>
+    
+</ContentPage>

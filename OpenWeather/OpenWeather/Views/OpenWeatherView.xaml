@@ -28,7 +28,7 @@
                 
                 <ActivityIndicator MinimumHeightRequest="20" MinimumWidthRequest="20" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Blue" Grid.ColumnSpan="6" HorizontalOptions="Center" Margin="10,0,0,0"/>
 
-                <Button Text="Map>" Command="{Binding ClickCommandMove}" HorizontalOptions="End" FontSize="25" FontAttributes="Bold" Grid.Row="0" Grid.ColumnSpan="12"/>
+               <!-- <Button Text="Map>" Command="{Binding ClickCommandMove}" HorizontalOptions="End" FontSize="25" FontAttributes="Bold" Grid.Row="0" Grid.ColumnSpan="12"/> -->
 
             <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="0" Grid.ColumnSpan="6" Margin="25,0,0,0">
                 <Label Text="{Binding CityName, StringFormat='{0:N0},'}" FontSize="30"  HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" FontAttributes="Bold"/>

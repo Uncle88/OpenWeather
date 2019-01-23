@@ -80,6 +80,7 @@
       <DependentUpon>FavoritePlacesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MenuViewModel.cs" />
+    <Compile Include="ViewModels\FavoritePlacesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
